@@ -1,0 +1,35 @@
+{
+	"name": "phabricator-quicklist",
+	"version": "0.0.1",
+	"description": "Consive overview for Phabricator",
+	"author": "Mischa Rodermond (https://mrpapercut.com)",
+	"repository": "https://github.com/mrpapercut/phabricator-quicklist",
+	"main": "app.js",
+	"scripts": {
+		"install": "bash ./install-conduitapi.sh && gulp",
+		"build": "gulp"
+	},
+	"devDependencies": {
+		"babel-eslint": "^2.0.2",
+		"babelify": "^6.1.2",
+		"browserify": "^10.2.4",
+		"eslint": "^0.17.1",
+		"gulp": "^3.8.10",
+		"gulp-eslint": "^0.12.0",
+		"gulp-minify-css": "^1.2.0",
+		"gulp-sass": "^2.0.1",
+		"gulp-uglify": "^1.0.1",
+		"gulp-util": "^3.0.2",
+		"vinyl-buffer": "^1.0.0",
+		"vinyl-source-stream": "^1.1.0",
+		"watchify": "^2.2.1"
+	},
+		"dependencies": {
+		"babel": "^5.5.8",
+		"es5-shim": "^4.1.5",
+		"ramda": "^0.11.0",
+		"react": "^0.13.0",
+		"superagent": "^0.21.0"
+	},
+	"readme": "Readme coming soon"
+}
