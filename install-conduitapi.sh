@@ -7,3 +7,9 @@ if [ ! -d ./lib/libphutil ]; then
 	echo "done."
 	echo ""
 fi
+
+# Setting definitions file
+if [ ! -d ./inc ]; then
+	mkdir inc
+fi
+echo -e "<?php\n\ndefine('API_TOKEN', '');\ndefine('CONDUIT_HOST', '');\n" > inc/definitions.inc.php

@@ -1,15 +1,28 @@
 'use strict';
 
 import React from 'react';
+import Bacon from 'baconjs';
 
-import Container from './Container';
+import Context		from './Context';
+import Container	from './components/Container';
+
+import UsersStore	from './stores/UsersStore';
 
 const container = React.createFactory(Container);
 
-class App {
-	constructor(ctx) {
-		React.render(container({ctx}), document.getElementById('container'));
-	}
-}
+import {loadUsers} from './server/server';
 
-export default App;
+window.addEventListener('DOMContentLoaded', () => {
+	const ctx = new Context();
+
+	const usersData = loadUsers();
+
+	ctx.stores.users = Bacon.update(
+		new UsersStore(),
+		[usersData], (store, data) => store.setUsers(data)
+	);
+
+	React.render(container({
+		ctx: ctx
+	}), document.getElementById('container'));
+});

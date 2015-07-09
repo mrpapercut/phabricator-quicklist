@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "strict": 0,
+    "quotes": "single",
+    "no-multi-spaces": false,
+    "eqeqeq": false,
+    "no-wrap-func": false,
+    "no-underscore-dangle": false,
+    "curly": [2, "multi-line"]
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "mocha": true
+  }
+}

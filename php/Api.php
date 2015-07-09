@@ -1,12 +1,36 @@
 <?php
 
-require_once '../lib/libphutil/src/__phutil_library_init__.php';
+try {
+	if (!file_exists('../lib/libphutil/src/__phutil_library_init__.php')) {
+		throw new Exception('Conduit API not found. Please run `npm install` or install it manually to /lib/libphutil');
+	} else if (!file_exists('../inc/definitions.inc.php')) {
+		throw new Exception('inc/definitions.inc.php not found. Please run `npm install`');
+	} else {
+		require_once '../lib/libphutil/src/__phutil_library_init__.php';
+		require_once '../inc/definitions.inc.php';
+	}
+} catch (Exception $e) {
+	echo 'Message: '.$e->getMessage();
+	echo 'Code: '.$e->getCode();
+}
+
+try {
+	if (!defined(API_TOKEN)) {
+		throw new Exception('API_TOKEN not defined in inc/definitions.inc.php');
+	} else if (!defined(CONDUIT_HOST)) {
+		throw new Exception('CONDUIT_HOST not defined in inc/definitions.inc.php');
+	}
+} catch (Exception $e) {
+	echo 'Message: '.$e->getMessage();
+	echo 'Code: '.$e->getCode();
+}
+
 
 class PhabricatorApi {
 
 	private $client;
-	private $apitoken = '';
-	private $host = '';
+	private $apitoken = API_TOKEN;
+	private $host = CONDUIT_HOST;
 
 	public function __construct() {
 		$this->connect();

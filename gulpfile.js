@@ -14,19 +14,26 @@ var eslint = require('gulp-eslint');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 
+var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer')
 var source = require('vinyl-source-stream')
 
 var jsfiles = './js/*.js';
+
+var noSourceMaps = false;
 
 function handleError(err) {
 	gutil.log(err);
 	this.emit('end');
 }
 
+gulp.task('no-sourcemaps', function() {
+	noSourceMaps = true;
+});
+
 function createJSBundle(options) {
 	var opts = {
-		//entries: jsfiles
+		debug: !noSourceMaps
 	};
 
 	var br = browserify(opts);
@@ -56,7 +63,7 @@ function createJSBundle(options) {
 gulp.task('js', function() {
 	return createJSBundle({
 		watch: false,
-		sourceName: './js/app.js',
+		sourceName: './js/App.js',
 		output: './build'
 	}).bundle();
 });
@@ -64,7 +71,7 @@ gulp.task('js', function() {
 gulp.task('js-watch', function() {
 	var jsBundle = createJSBundle({
 		watch: true,
-		sourceName: './js/app.js',
+		sourceName: './js/App.js',
 		output: './build'
 	});
 	jsBundle.bundler.on('update', jsBundle.bundle);
@@ -120,4 +127,4 @@ gulp.task('css-minify', ['css'], function() {
 
 gulp.task('watch', ['js-watch', 'css', 'css-watch']);
 
-gulp.task('default', ['js', 'css', 'js-minify', 'css-minify']);
+gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify']);
