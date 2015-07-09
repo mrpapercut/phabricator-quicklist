@@ -4,4 +4,4 @@ build
 lib/libphutil
 
 # files
-inc/definition.inc.php
+inc/definitions.inc.php
