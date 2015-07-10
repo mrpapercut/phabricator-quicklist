@@ -27,6 +27,10 @@ function handleError(err) {
 	this.emit('end');
 }
 
+gulp.task('set-chrome-env', function() {
+	return process.env.NODE_ENV = 'chrome';
+});
+
 gulp.task('no-sourcemaps', function() {
 	noSourceMaps = true;
 });
@@ -128,3 +132,8 @@ gulp.task('css-minify', ['css'], function() {
 gulp.task('watch', ['js-watch', 'css', 'css-watch']);
 
 gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify']);
+
+gulp.task('chromeapp', ['set-chrome-env', 'default'], function() {
+	gulp.src('./build/**/*.*')
+		.pipe(gulp.dest('./chromeapp/build/'));
+});

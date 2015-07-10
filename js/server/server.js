@@ -10,7 +10,7 @@ import {
 export function loadUsers() {
 	return Bacon.fromNodeCallback(cb => {
 		request
-			.get('./php/Api.php?query=listUsers')
+			.get('http://localhost:8000/phabricator-quicklist/php/Api.php?query=listUsers')
 			.set('Accept', 'application/json')
 			.end(end(cb))
 	});

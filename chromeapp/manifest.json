@@ -1,0 +1,14 @@
+{
+	"manifest_version": 2,
+	"name": "Phabricator Quicklist",
+	"description": "Concise overview for Phabricator",
+	"version": "0.0.1",
+	"icons": {
+		"128": "icons/logo128.png"
+	},
+	"app": {
+		"background": {
+			"scripts": ["background.js"]
+		}
+	}
+}

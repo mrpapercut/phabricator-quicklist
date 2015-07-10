@@ -14,18 +14,6 @@ try {
 	echo 'Code: '.$e->getCode();
 }
 
-try {
-	if (!defined(API_TOKEN)) {
-		throw new Exception('API_TOKEN not defined in inc/definitions.inc.php');
-	} else if (!defined(CONDUIT_HOST)) {
-		throw new Exception('CONDUIT_HOST not defined in inc/definitions.inc.php');
-	}
-} catch (Exception $e) {
-	echo 'Message: '.$e->getMessage();
-	echo 'Code: '.$e->getCode();
-}
-
-
 class PhabricatorApi {
 
 	private $client;
@@ -122,8 +110,23 @@ class PhabricatorApi {
 	}
 }
 
-if (is_array($_GET) && isset($_GET['query'])) {
-	$api = new PhabricatorApi();
 
-	echo $api->process($_GET['query'], $_GET);
+
+try {
+	if (!defined('API_TOKEN')) {
+		throw new Exception('API_TOKEN not defined in inc/definitions.inc.php');
+	} else if (!defined('CONDUIT_HOST')) {
+		throw new Exception('CONDUIT_HOST not defined in inc/definitions.inc.php');
+	} else {
+		header("Access-Control-Allow-Origin: *");
+
+		if (is_array($_GET) && isset($_GET['query'])) {
+			$api = new PhabricatorApi();
+
+			echo $api->process($_GET['query'], $_GET);
+		}
+	}
+} catch (Exception $e) {
+	echo 'Message: '.$e->getMessage();
+	echo 'Code: '.$e->getCode();
 }

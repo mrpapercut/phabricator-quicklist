@@ -11,7 +11,6 @@ export default class UsersStore {
 	}
 
 	setUsers(users) {
-		console.log(users);
 		this.users = users;
 
 		return this.reinit();

@@ -4,7 +4,7 @@ import React from 'react';
 
 import {GetContext, StateStream} from '../mixins';
 
-const {div, img, a} = React.DOM;
+const {div, a} = React.DOM;
 
 const Users = React.createClass({
 
@@ -19,13 +19,12 @@ const Users = React.createClass({
 
 	createUser(user) {
 		return div({
+			key: user.phid,
 			className: 'user'
 		},
-			img({
-				src: user.image
-			}),
 			a({
-				href: user.uri
+				href: user.uri,
+				target: '_blank'
 			}, user.userName)
 		);
 	},

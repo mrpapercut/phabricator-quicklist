@@ -1,7 +1,7 @@
 {
 	"name": "phabricator-quicklist",
 	"version": "0.0.1",
-	"description": "Consive overview for Phabricator",
+	"description": "Concise overview for Phabricator",
 	"author": "Mischa Rodermond (https://mrpapercut.com)",
 	"repository": "https://github.com/mrpapercut/phabricator-quicklist",
 	"main": "app.js",
