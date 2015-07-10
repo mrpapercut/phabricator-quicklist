@@ -7,31 +7,35 @@ import {
 	defaultEnd as end
 } from '../lib/server';
 
-const apiurl = 'http://localhost:8000/phabricator-quicklist/php/Api.php';
+const apiurl = 'http://localhost/phabricator-quicklist/php/Api.php';
 
-export function loadUsers() {
+function callApi(query) {
 	return Bacon.fromNodeCallback(cb => {
 		request
 			.get(apiurl)
-			.query({
-				query: 'listUsers'
-			})
+			.query(query)
 			.set('Accept', 'application/json')
-			.end(end(cb))
+			.end(end(cb));
+	});
+}
+
+export function listProjects() {
+	return callApi({
+		query: 'listProjects'
+	});
+}
+
+export function loadUsers() {
+	return callApi({
+		query: 'listUsers'
 	});
 }
 
 export function getAssignedTasks(details) {
-	return Bacon.fromNodeCallback(cb => {
-		request
-			.get(apiurl)
-			.query({
-				query: 'getAssignedTasksByUser',
-				owner: details.owner,
-				project: details.project,
-				status: details.status || 'status-open'
-			})
-			.set('Accept', 'application/json')
-			.end(end(cb))
+	return this.callApi({
+		query: 'getAssignedTasksByUser',
+		owner: details.owner,
+		project: details.project,
+		status: details.status || 'status-open'
 	});
 }
