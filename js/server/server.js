@@ -7,7 +7,7 @@ import {
 	defaultEnd as end
 } from '../lib/server';
 
-const apiurl = 'http://localhost/phabricator-quicklist/php/Api.php';
+const apiurl = 'http://localhost/phabricator/php/Api.php';
 
 function callApi(query) {
 	return Bacon.fromNodeCallback(cb => {
@@ -32,7 +32,7 @@ export function listUsers() {
 }
 
 export function getAssignedTasks(details) {
-	return this.callApi({
+	return callApi({
 		query: 'getAssignedTasksByUser',
 		owner: details.owner,
 		project: details.project,
