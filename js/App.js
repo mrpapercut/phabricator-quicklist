@@ -17,7 +17,7 @@ import {
 import {
 	listUsers,
 	listProjects,
-	getAssignedTasks
+	getTasks
 } from './server/server';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -37,9 +37,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		[projectsData], (store, data) => store.setProjects(data)
 	);
 
-	const tasksData = getAssignedTasks({
+	const tasksData = getTasks({
+		// author: 'PHID-USER-w4nlajeutuuhnigt33dx',
 		owner: 'PHID-USER-w4nlajeutuuhnigt33dx',
-		project: 'PHID-PROJ-xlhiqmafp6l662vzxjj3'
+		project: 'PHID-PROJ-xlhiqmafp6l662vzxjj3',
+		status: 'status-open'
 	});
 
 	ctx.stores.tasks = Bacon.update(

@@ -75,42 +75,28 @@ class PhabricatorApi {
 		));
 	}
 
-	public function getCreatedTasksByUser($data) {
-		if (!isset($data['author'])) return;
+	public function getTasks($data) {
+		$params = array();
 
-		$author = $data['author'];
+		$params['status'] = isset($data['status']) ? $data['status'] : 'status-open';
 
-		return $this->callMethod('maniphest.query', array(
-			'authorPHIDs' => is_array($author) ? $author : array($author),
-			'projectPHIDs' => isset($data['project']) ? array($data['project']) : null,
-			'status' => isset($data['status']) ? $data['status'] : 'status-open'
-		), false);
-	}
+		foreach(['author', 'project', 'owner'] as $type) {
+			if (isset($data[$type])) {
+				$params[$type.'PHIDs'] = is_array($data[$type]) ? $data[$type] : array($data[$type]);
+			}
+		}
 
-	public function getAssignedTasksByUser($data) {
-		if (!isset($data['owner'])) return;
-
-		$owner = $data['owner'];
-
-		return $this->callMethod('maniphest.query', array(
-			'ownerPHIDs' => is_array($owner) ? $owner : array($owner),
-			'projectPHIDs' => isset($data['project']) ? array($data['project']) : null,
-			'status' => isset($data['status']) ? $data['status'] : 'status-open'
-		), false);
+		return $this->callMethod('maniphest.query', $params, false);
 	}
 
 	public function getTaskInfo($data) {
 		if (!isset($data['id'])) return;
 
-		$id = $data['id'];
-
 		return $this->callMethod('maniphest.info', array(
-			'task_id' => $id
+			'task_id' => $data['id']
 		), false);
 	}
 }
-
-
 
 try {
 	if (!defined('API_TOKEN')) {

@@ -31,11 +31,26 @@ export function listUsers() {
 	});
 }
 
-export function getAssignedTasks(details) {
+export function getUserByName(name) {
 	return callApi({
-		query: 'getAssignedTasksByUser',
-		owner: details.owner,
-		project: details.project,
+		query: 'getUserByName',
+		name: name
+	});
+}
+
+export function getTasks(details) {
+	return callApi({
+		query: 'getTasks',
+		author: details.author || null,
+		project: details.project || null,
+		owner: details.owner || null,
 		status: details.status || 'status-open'
+	});
+}
+
+export function getTaskInfo(id) {
+	return callApi({
+		query: 'getTaskInfo',
+		id: id
 	});
 }
