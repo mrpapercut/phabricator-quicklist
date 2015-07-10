@@ -10,8 +10,12 @@ try {
 		require_once '../inc/definitions.inc.php';
 	}
 } catch (Exception $e) {
-	echo 'Message: '.$e->getMessage();
-	echo 'Code: '.$e->getCode();
+	echo json_encode(array(
+		'error' => array(
+			'Message' => $e->getMessage(),
+			'Code' => $e->getCode()
+		)
+	));
 }
 
 class PhabricatorApi {
@@ -113,6 +117,10 @@ try {
 		}
 	}
 } catch (Exception $e) {
-	echo 'Message: '.$e->getMessage();
-	echo 'Code: '.$e->getCode();
+	echo json_encode(array(
+		'error' => array(
+			'Message' => $e->getMessage(),
+			'Code' => $e->getCode()
+		)
+	));
 }
