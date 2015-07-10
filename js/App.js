@@ -3,27 +3,36 @@
 import React from 'react';
 import Bacon from 'baconjs';
 
-import Context		from './Context';
-import Container	from './components/Container';
+import Context			from './Context';
+import Container		from './components/Container';
 
-import UsersStore	from './stores/UsersStore';
-import TasksStore	from './stores/TasksStore';
+import UsersStore		from './stores/UsersStore';
+import TasksStore		from './stores/TasksStore';
+import ProjectsStore	from './stores/ProjectsStore';
 
 const container = React.createFactory(Container);
 
 import {
-	loadUsers,
+	listUsers,
+	listProjects,
 	getAssignedTasks
 } from './server/server';
 
 window.addEventListener('DOMContentLoaded', () => {
 	const ctx = new Context();
 
-	const usersData = loadUsers();
+	const usersData = listUsers();
 
 	ctx.stores.users = Bacon.update(
 		new UsersStore(),
 		[usersData], (store, data) => store.setUsers(data)
+	);
+
+	const projectsData = listProjects();
+
+	ctx.stores.projects = Bacon.update(
+		new ProjectsStore(),
+		[projectsData], (store, data) => store.setProjects(data)
 	);
 
 	const tasksData = getAssignedTasks({

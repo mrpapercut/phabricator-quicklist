@@ -25,7 +25,7 @@ export function listProjects() {
 	});
 }
 
-export function loadUsers() {
+export function listUsers() {
 	return callApi({
 		query: 'listUsers'
 	});
