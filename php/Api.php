@@ -76,24 +76,24 @@ class PhabricatorApi {
 	}
 
 	public function getCreatedTasksByUser($data) {
-		if (!isset($data['phid'])) return;
+		if (!isset($data['author'])) return;
 
-		$phid = $data['phid'];
+		$author = $data['author'];
 
 		return $this->callMethod('maniphest.query', array(
-			'authorPHIDs' => is_array($phid) ? $phid : array($phid),
+			'authorPHIDs' => is_array($author) ? $author : array($author),
 			'projectPHIDs' => isset($data['project']) ? array($data['project']) : null,
 			'status' => isset($data['status']) ? $data['status'] : 'status-open'
 		), false);
 	}
 
 	public function getAssignedTasksByUser($data) {
-		if (!isset($data['phid'])) return;
+		if (!isset($data['owner'])) return;
 
-		$phid = $data['phid'];
+		$owner = $data['owner'];
 
 		return $this->callMethod('maniphest.query', array(
-			'ownerPHIDs' => is_array($phid) ? $phid : array($phid),
+			'ownerPHIDs' => is_array($owner) ? $owner : array($owner),
 			'projectPHIDs' => isset($data['project']) ? array($data['project']) : null,
 			'status' => isset($data['status']) ? $data['status'] : 'status-open'
 		), false);
