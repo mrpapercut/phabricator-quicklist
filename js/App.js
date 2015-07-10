@@ -6,12 +6,6 @@ import Bacon from 'baconjs';
 import Context			from './Context';
 import Container		from './components/Container';
 
-/*
-import UsersStore		from './stores/UsersStore';
-import TasksStore		from './stores/TasksStore';
-import ProjectsStore	from './stores/ProjectsStore';
-*/
-
 const container = React.createFactory(Container);
 
 import {
