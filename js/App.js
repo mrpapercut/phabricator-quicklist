@@ -3,8 +3,8 @@
 import React from 'react';
 import Bacon from 'baconjs';
 
-import Context			from './Context';
-import Container		from './components/Container';
+import Context		from './Context';
+import Container	from './components/Container';
 
 const container = React.createFactory(Container);
 

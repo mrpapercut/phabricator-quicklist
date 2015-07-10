@@ -8,6 +8,10 @@ body {
 	font-family: 'latoregular', sans;
 	font-size: 1.2em;
 
+	width: 480px;
+	margin: 0 auto;
+	border: 1px solid $purple;
+
 	hr {
 		border: 0;
 		border-bottom: 1px solid $blue;
@@ -25,11 +29,11 @@ body {
 	}
 
 	#container {
-		width: 960px;
-		margin: 20px auto;
+		width: calc(100% - 2em);
+		margin: 2em auto 0;
 		background: #fff;
 		color: $grey;
-		padding: 20px;
+		padding: 1em;
 		box-shadow: 0 5px 30px -15px;
 	}
 }

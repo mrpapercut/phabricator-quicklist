@@ -4,10 +4,8 @@ import ProjectsStore from './ProjectsStore';
 import TasksStore from './TasksStore';
 import UsersStore from './UsersStore';
 
-const stores = {
+export default {
 	ProjectsStore,
 	TasksStore,
 	UsersStore
 };
-
-export default stores;
