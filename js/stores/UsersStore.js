@@ -2,12 +2,13 @@
 
 export default class UsersStore {
 
-	constructor(users) {
-		this.users = users;
+	constructor(users, curUser) {
+		this.users = users || [];
+		this.curUser = curUser || {};
 	}
 
 	reinit() {
-		return new UsersStore(this.users);
+		return new UsersStore(this.users, this.curUser);
 	}
 
 	setUsers(users) {
@@ -18,5 +19,15 @@ export default class UsersStore {
 
 	getUsers() {
 		return this.users;
+	}
+
+	setCurrentUser(user) {
+		this.curUser = user;
+
+		return this.reinit();
+	}
+
+	getCurrentUser() {
+		return this.curUser;
 	}
 }

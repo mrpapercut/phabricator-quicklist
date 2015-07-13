@@ -39,3 +39,9 @@ export function getAssignedTasks(details) {
 		status: details.status || 'status-open'
 	});
 }
+
+export function whoami() {
+	return callApi({
+		query: 'whoami'
+	});
+}

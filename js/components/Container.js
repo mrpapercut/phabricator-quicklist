@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import {GetContext} from '../mixins';
+import {GetContext, StateStream} from '../mixins';
 
 import Users from './Users';
 import Tasks from './Tasks';
@@ -17,7 +17,19 @@ const projects = cf(Projects);
 
 const Container = React.createClass({
 
-	mixins: [GetContext],
+	mixins: [GetContext, StateStream],
+
+	stateStream() {
+		return this.ctx().stores.appstore
+			.map(store => ({
+				currentPage: store.getCurrentPage()
+			})
+		);
+	},
+
+	loadPage() {
+		console.log(this.state.currentPage);
+	},
 
 	render() {
 		const ctx = this.ctx();

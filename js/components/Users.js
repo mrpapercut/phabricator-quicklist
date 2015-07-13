@@ -13,7 +13,8 @@ const Users = React.createClass({
 	stateStream() {
 		return this.ctx().stores.users
 			.map(store => ({
-				users: store.getUsers() || []
+				users: store.getUsers() || [],
+				curUser: store.getCurrentUser()
 			}));
 	},
 

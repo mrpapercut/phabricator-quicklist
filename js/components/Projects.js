@@ -18,7 +18,6 @@ const Projects = React.createClass({
 	},
 
 	render() {
-		console.log(this.state.projects);
 		return (
 			div({},
 				null

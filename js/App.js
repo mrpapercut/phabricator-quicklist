@@ -17,17 +17,20 @@ import {
 import {
 	listUsers,
 	listProjects,
-	getAssignedTasks
+	getAssignedTasks,
+	whoami
 } from './server/server';
 
 window.addEventListener('DOMContentLoaded', () => {
 	const ctx = new Context();
 
 	const usersData = listUsers();
+	const curUser = whoami();
 
 	ctx.stores.users = Bacon.update(
 		new UsersStore(),
-		[usersData], (store, data) => store.setUsers(data)
+		[usersData], (store, data) => store.setUsers(data),
+		[curUser], (store, data) => store.setCurrentUser(data)
 	);
 
 	const projectsData = listProjects();
@@ -46,6 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		new TasksStore(),
 		[tasksData], (store, data) => store.setTasks(data)
 	);
+
 
 	React.render(container({
 		ctx: ctx

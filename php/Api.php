@@ -29,7 +29,7 @@ class PhabricatorApi {
 		$this->client->setConduitToken($this->apitoken);
 	}
 
-	private function callMethod($method, $params, $translate = true) {
+	private function callMethod($method, $params = array(), $translate = true) {
 		$result = $this->client->callMethodSynchronous($method, $params);
 		return $translate ? $this->translatePHIDs($result) : $result;
 	}
@@ -57,12 +57,16 @@ class PhabricatorApi {
 	}
 
 	/* Available calls */
+	public function whoami() {
+		return $this->callMethod('user.whoami');
+	}
+
 	public function listProjects() {
-		return $this->callMethod('project.query', array());
+		return $this->callMethod('project.query');
 	}
 
 	public function listUsers() {
-		return $this->callMethod('user.query', array());
+		return $this->callMethod('user.query');
 	}
 
 	public function getUserByName($data) {
