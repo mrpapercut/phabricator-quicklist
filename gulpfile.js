@@ -7,6 +7,7 @@ var gutil = require('gulp-util');
 // browserify
 var browserify = require('browserify');
 var watchify = require('watchify');
+var envify = require('envify/custom');
 
 // other transforms
 var uglify = require('gulp-uglify');
@@ -22,10 +23,16 @@ var jsfiles = './js/*.js';
 
 var noSourceMaps = false;
 
+process.env.NODE_ENV = 'production';
+
 function handleError(err) {
 	gutil.log(err);
 	this.emit('end');
 }
+
+gulp.task('set-dev-env', function() {
+	return process.env.NODE_ENV = 'dev';
+});
 
 gulp.task('set-chrome-env', function() {
 	return process.env.NODE_ENV = 'chrome';
@@ -43,7 +50,10 @@ function createJSBundle(options) {
 	var br = browserify(opts);
 
 	var bundler = (options.watch ? watchify(br) : br)
-		.transform('babelify');
+		.transform('babelify')
+		.transform(envify({
+			NODE_ENV: process.env.NODE_ENV
+		}));
 
 	bundler = bundler.add(options.sourceName || jsfiles);
 
@@ -129,7 +139,7 @@ gulp.task('css-minify', ['css'], function() {
 		.pipe(gulp.dest('./build/css'));
 });
 
-gulp.task('watch', ['js-watch', 'css', 'css-watch']);
+gulp.task('watch', ['set-dev-env', 'js-watch', 'css', 'css-watch']);
 
 gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify']);
 

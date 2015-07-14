@@ -13,6 +13,7 @@
 		"babel-eslint": "^2.0.2",
 		"babelify": "^6.1.2",
 		"browserify": "^10.2.4",
+		"envify": "^3.4.0",
 		"eslint": "^0.17.1",
 		"gulp": "^3.8.10",
 		"gulp-eslint": "^0.12.0",
