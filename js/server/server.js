@@ -7,7 +7,9 @@ import {
 	defaultEnd as end
 } from '../lib/server';
 
-const apiurl = 'http://localhost/phabricator-quicklist/php/Api.php';
+const apiurl = process.env.NODE_ENV === 'chrome'
+	? 'http://localhost/phabricator-quicklist/php/Api.php'
+	: './php/Api.php';
 
 function callApi(query) {
 	return Bacon.fromNodeCallback(cb => {
