@@ -7,7 +7,7 @@ import {
 	defaultEnd as end
 } from '../lib/server';
 
-const apiurl = 'http://localhost/phabricator-quicklist/php/Api.php';
+const apiurl = 'http://localhost:8000/phabricator-quicklist/php/Api.php';
 
 function callApi(query) {
 	return Bacon.fromNodeCallback(cb => {

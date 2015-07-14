@@ -4,7 +4,7 @@ export default class AppStore {
 
 	constructor(currentPage) {
 		this.currentPage = currentPage;
-	},
+	}
 
 	reinit() {
 		return new AppStore(this.currentPage);
@@ -12,7 +12,7 @@ export default class AppStore {
 
 	setCurrentPage(page) {
 		this.currentPage = page;
-	},
+	}
 
 	getCurrentPage() {
 		return this.currentPage;

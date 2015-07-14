@@ -8,9 +8,13 @@ body {
 	font-family: 'latoregular', sans;
 	font-size: 1.2em;
 
-	width: 480px;
 	margin: 0 auto;
-	border: 1px solid $purple;
+	width: 100%;
+
+	&:not(.chromeapp) {
+		width: 960px;
+		box-shadow: 0px 0px 10px 2px $purple;
+	}
 
 	hr {
 		border: 0;

@@ -10,5 +10,9 @@
 		"background": {
 			"scripts": ["background.js"]
 		}
-	}
+	},
+	"permissions": [
+		"notifications",
+		"storage"
+	]
 }
