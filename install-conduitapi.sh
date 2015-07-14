@@ -6,10 +6,10 @@ if [ ! -d ./lib/libphutil ]; then
 	git clone https://github.com/phacility/libphutil.git ./lib/libphutil &> /dev/null
 	echo "done."
 	echo ""
-fi
 
-# Setting definitions file
-if [ ! -d ./inc ]; then
-	mkdir inc
+	# Setting definitions file
+	if [ ! -d ./inc ]; then
+		mkdir inc
+		echo -e "<?php\n\ndefine('API_TOKEN', '');\ndefine('CONDUIT_HOST', '');\n" > inc/definitions.inc.php
+	fi
 fi
-echo -e "<?php\n\ndefine('API_TOKEN', '');\ndefine('CONDUIT_HOST', '');\n" > inc/definitions.inc.php
