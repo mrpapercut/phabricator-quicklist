@@ -12,6 +12,7 @@
 		}
 	},
 	"permissions": [
-		"notifications"
+		"notifications",
+		"storage"
 	]
 }

@@ -18,7 +18,6 @@ const Tasks = React.createClass({
 	},
 
 	render() {
-		console.log(this.state.tasks);
 		return (
 			div({},
 				null

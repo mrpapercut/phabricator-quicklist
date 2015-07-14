@@ -3,6 +3,7 @@
 import React from 'react';
 
 import {GetContext, StateStream} from '../mixins';
+import storage from '../lib/storage';
 
 const {div, a} = React.DOM;
 
@@ -13,7 +14,8 @@ const Users = React.createClass({
 	stateStream() {
 		return this.ctx().stores.users
 			.map(store => ({
-				users: store.getUsers() || []
+				users: store.getActiveUsers() || [],
+				curUser: store.getCurrentUser()
 			}));
 	},
 
@@ -30,6 +32,10 @@ const Users = React.createClass({
 	},
 
 	render() {
+		storage.get('currentUser', function(res) {
+			console.log('localstorage', res);
+		});
+
 		return (
 			div({},
 				this.state.users.map(user => this.createUser(user))

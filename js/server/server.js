@@ -56,3 +56,9 @@ export function getTaskInfo(id) {
 		id: id
 	});
 }
+
+export function whoami() {
+	return callApi({
+		query: 'whoami'
+	});
+}

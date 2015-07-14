@@ -9,6 +9,7 @@ import Container	from './components/Container';
 const container = React.createFactory(Container);
 
 import {
+	AppStore,
 	ProjectsStore,
 	TasksStore,
 	UsersStore
@@ -17,21 +18,26 @@ import {
 import {
 	listUsers,
 	listProjects,
-	getTasks
+	getTasks,
+	whoami
 } from './server/server';
 
 window.addEventListener('DOMContentLoaded', () => {
 	const ctx = new Context();
 
 	const usersData = listUsers();
-
+	const curUser = whoami();
 	ctx.stores.users = Bacon.update(
 		new UsersStore(),
-		[usersData], (store, data) => store.setUsers(data)
+		[usersData], (store, data) => store.setUsers(data),
+		[curUser], (store, data) => store.setCurrentUser(data)
+	);
+
+	ctx.stores.appstore = Bacon.update(
+		new AppStore()
 	);
 
 	const projectsData = listProjects();
-
 	ctx.stores.projects = Bacon.update(
 		new ProjectsStore(),
 		[projectsData], (store, data) => store.setProjects(data)
@@ -43,11 +49,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		project: 'PHID-PROJ-xlhiqmafp6l662vzxjj3',
 		status: 'status-open'
 	});
-
 	ctx.stores.tasks = Bacon.update(
 		new TasksStore(),
 		[tasksData], (store, data) => store.setTasks(data)
 	);
+
 
 	React.render(container({
 		ctx: ctx
