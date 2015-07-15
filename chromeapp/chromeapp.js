@@ -1,64 +1,49 @@
-if (!Object.assign) {
-	Object.defineProperty(Object, 'assign', {
-		enumerable: false,
-		configurable: true,
-		writable: true,
-		value: function(target) {
-			'use strict';
-			if (target === undefined || target === null) {
-				throw new TypeError('Cannot convert first argument to object');
-			}
-
-			var to = Object(target);
-			for (var i = 1; i < arguments.length; i++) {
-				var nextSource = arguments[i];
-				if (nextSource === undefined || nextSource === null) {
-					continue;
-				}
-				nextSource = Object(nextSource);
-
-				var keysArray = Object.keys(Object(nextSource));
-				for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
-					var nextKey = keysArray[nextIndex];
-					var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
-					if (desc !== undefined && desc.enumerable) {
-						to[nextKey] = nextSource[nextKey];
-					}
-				}
-			}
-			return to;
-		}
-	});
-}
-
 window.notify = {
 	create: function(options, callback) {
-		var defOpts = {
+		var opts = {
 			type: 'basic',
-			title: 'Default title',
-			message: '',
-			iconUrl: ''
+			title: options.title || 'Default title',
+			message: options.message || '',
+			iconUrl: options.icon || 'icons/logo128.png'
+		},
+		notificationId = [] + Date.now(),
+		clear = function(id) {
+			chrome.notifications.clear(id)
+		},
+		removeListeners = function() {
+			chrome.notifications.onClicked.removeListener(onClick);
+			chrome.notifications.onClosed.removeListener(onClose);
+		},
+		onClick = function(id) {
+			if (id === notificationId) {
+				removeListeners();
+				clear(id);
+				options.onClick(id);
+			}
+		},
+		onClose = function(id, byUser) {
+			if (id === notificationId) {
+				removeListeners();
+				clear(id);
+				options.onClose(id, !!byUser);
+			}
+		};
+
+		if (typeof options.onClick === 'function') {
+			chrome.notifications.onClicked.addListener(onClick);
 		}
 
-		chrome.notifications.create(null, Object.assign(defOpts, options), callback);
-	},
+		if (typeof options.onClose === 'function') {
+			chrome.notifications.onClosed.addListener(onClose);
+		}
 
-	onClosed: function(callback) {
-		chrome.notifications.onClosed.addListener(callback);
-	},
+		chrome.notifications.onClicked.addListener(function(id) {
+			chrome.app.window.current().show();
+		});
 
-	onClicked: function(callback) {
-		chrome.notifications.onClicked.addListener(callback);
+		chrome.notifications.create(notificationId, opts, callback);
 	}
 }
-
-window.notify.onClosed(function(id, byUser) {
-	chrome.app.window.current().drawAttention();
-});
-
-window.notify.onClicked(function(id) {
-	chrome.app.window.current().show();
-});
 
 document.querySelector('.window-action#minimize').addEventListener('click', function() {
 	chrome.app.window.current().minimize();
