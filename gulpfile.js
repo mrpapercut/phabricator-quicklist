@@ -143,7 +143,7 @@ gulp.task('watch', ['set-dev-env', 'js-watch', 'css', 'css-watch']);
 
 gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify']);
 
-gulp.task('chromeapp', ['set-chrome-env', 'default'], function() {
+gulp.task('chromeapp', ['set-chrome-env', 'js', 'css'], function() {
 	gulp.src('./build/**/*.*')
 		.pipe(gulp.dest('./chromeapp/build/'));
 });
