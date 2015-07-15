@@ -31,7 +31,7 @@ export default class UsersStore {
 
 	setCurrentUser(user) {
 		storage.set('currentUser', user, (err, res) => {
-			console.log(err, res);
+			if (err) console.error(err);
 		});
 
 		this.curUser = user;

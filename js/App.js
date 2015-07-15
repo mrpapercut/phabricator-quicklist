@@ -54,7 +54,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		[tasksData], (store, data) => store.setTasks(data)
 	);
 
-
 	React.render(container({
 		ctx: ctx
 	}), document.getElementById('container'));

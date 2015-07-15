@@ -32,10 +32,6 @@ const Users = React.createClass({
 	},
 
 	render() {
-		storage.get('currentUser', function(res) {
-			console.log('localstorage', res);
-		});
-
 		return (
 			div({},
 				this.state.users.map(user => this.createUser(user))
