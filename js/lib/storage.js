@@ -1,6 +1,6 @@
 'use strict';
 
-const isChrome = chrome && chrome.storage;
+const isChrome = typeof chrome !== 'undefined' && chrome.storage;
 const localstorage = isChrome ? chrome.storage.local : window.localStorage;
 
 const browserStorage = {
