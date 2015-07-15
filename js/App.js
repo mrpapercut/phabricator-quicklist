@@ -6,6 +6,8 @@ import Bacon from 'baconjs';
 import Context		from './Context';
 import Container	from './components/Container';
 
+import Pages		from './pages';
+
 const container = React.createFactory(Container);
 
 import {
