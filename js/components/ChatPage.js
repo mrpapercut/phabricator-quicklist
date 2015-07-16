@@ -6,7 +6,7 @@ import {GetContext, StateStream} from '../mixins';
 
 const {div, a} = React.DOM;
 
-const Tasks = React.createClass({
+const ChatPage = React.createClass({
 
 	mixins: [GetContext, StateStream],
 
@@ -26,4 +26,4 @@ const Tasks = React.createClass({
 	}
 });
 
-export default Tasks;
+export default ChatPage;

@@ -7,7 +7,7 @@ import storage from '../lib/storage';
 
 const {div, a} = React.DOM;
 
-const Users = React.createClass({
+const UsersPage = React.createClass({
 
 	mixins: [GetContext, StateStream],
 
@@ -40,4 +40,4 @@ const Users = React.createClass({
 	}
 });
 
-export default Users;
+export default UsersPage;

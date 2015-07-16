@@ -6,14 +6,14 @@ import {GetContext, StateStream} from '../mixins';
 
 const {div, a} = React.DOM;
 
-const Projects = React.createClass({
+const TasksPage = React.createClass({
 
 	mixins: [GetContext, StateStream],
 
 	stateStream() {
-		return this.ctx().stores.projects
+		return this.ctx().stores.tasks
 			.map(store => ({
-				projects: store.getProjects() || {}
+				tasks: store.getTasks() || {}
 			}));
 	},
 
@@ -26,4 +26,4 @@ const Projects = React.createClass({
 	}
 });
 
-export default Projects;
+export default TasksPage;
