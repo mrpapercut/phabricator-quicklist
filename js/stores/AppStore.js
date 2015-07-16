@@ -2,12 +2,13 @@
 
 export default class AppStore {
 
-	constructor(currentPage) {
-		this.currentPage = currentPage;
+	constructor(currentPage, details) {
+		this.currentPage = currentPage || null;
+		this.details = details || null;
 	}
 
 	reinit() {
-		return new AppStore(this.currentPage);
+		return new AppStore(this.currentPage, this.details);
 	}
 
 	setCurrentPage(page) {
@@ -16,5 +17,14 @@ export default class AppStore {
 
 	getCurrentPage() {
 		return this.currentPage;
+	}
+
+	setWhoami(details) {
+		this.details = details;
+		return this.reinit();
+	}
+
+	getWhoami() {
+		return this.details;
 	}
 }
