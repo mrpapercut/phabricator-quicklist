@@ -1,64 +1,56 @@
 'use strict';
 
-import Bacon		from 'baconjs';
-import request		from 'superagent';
+import Bacon	from 'baconjs';
+import request	from 'superagent';
+import qs		from 'qs';
 
 import {
 	defaultEnd as end
 } from '../lib/server';
 
-const apiurl = process.env.NODE_ENV === 'chrome'
-	? 'http://localhost/phabricator-quicklist/php/Api.php'
-	: './php/Api.php';
+const apiurl = 'http://localhost:3000/';
 
-function callApi(query) {
+function callApi(req, params) {
+	params = params || {};
+
 	return Bacon.fromNodeCallback(cb => {
 		request
-			.get(apiurl)
-			.query(query)
+			.get(apiurl + req)
+			.query(qs.stringify(params))
 			.set('Accept', 'application/json')
 			.end(end(cb));
 	});
 }
 
 export function listProjects() {
-	return callApi({
-		query: 'listProjects'
-	});
+	return callApi('listProjects');
 }
 
 export function listUsers() {
-	return callApi({
-		query: 'listUsers'
-	});
+	return callApi('listUsers');
 }
 
 export function getUserByName(name) {
-	return callApi({
-		query: 'getUserByName',
-		name: name
+	return callApi('getUserByName', {
+		usernames: name
 	});
 }
 
 export function getTasks(details) {
-	return callApi({
-		query: 'getTasks',
-		author: details.author || null,
-		project: details.project || null,
-		owner: details.owner || null,
+	return callApi('getTasks', {
+		authorPHIDs: details.author || null,
+		projectPHIDs: details.project || null,
+		ownerPHIDs: details.owner || null,
 		status: details.status || 'status-open'
 	});
 }
 
 export function getTaskInfo(id) {
-	return callApi({
-		query: 'getTaskInfo',
-		id: id
+	return callApi('getTaskInfo', {
+		task_id: id
 	});
 }
 
 export function whoami() {
-	return callApi({
-		query: 'whoami'
-	});
+	return callApi('whoami');
 }

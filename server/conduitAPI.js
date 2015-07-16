@@ -8,8 +8,8 @@ import {defaultEnd as end} from '../js/lib/server';
 
 export default class ConduitAPI {
 	constructor(token, host) {
-		this.token = token || 'api-nkqei2lmty3c4gjbru2n5jjlyiie';
-		this.host = host || 'http://symbaloo.tw:8085';
+		this.token = token; // API Token
+		this.host = host; // Phabricator host url
 	}
 
 	doRequest(uri, params, callback) {

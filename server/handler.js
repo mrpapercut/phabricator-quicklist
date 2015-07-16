@@ -10,9 +10,12 @@ export default class {
 
 	listen(req, res) {
 		api.handle(req.url, (err, data) => {
-			if (err) console.log(err);
-			else if (data && data.result) res.end(JSON.stringify(data.result));
-			else {
+			if (err) {
+				console.log(err);
+			} else if (data && data.result) {
+				res.setHeader('Access-Control-Allow-Origin', '*');
+				res.end(JSON.stringify(data.result));
+			} else {
 				if (data) console.log(data);
 				res.end(null);
 			}
