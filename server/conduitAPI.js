@@ -90,12 +90,12 @@ export default class ConduitAPI {
 		this.doRequest('maniphest.query', defParams, callback);
 	}
 
-	handle(uri, callback) {
-		const matched = uri.match(/\/([a-zA-Z]+)(\?(.*))?/);
+	handle(req, callback) {
+		const matched = req.url.match(/\/([a-zA-Z]+)(\?(.*))?/);
 
 		if (!matched) callback(null);
 
-		const [url, req, qs, params] = matched.map(_ => _);
+		const [url, method, qs, params] = matched.map(_ => _);
 
 		const validUris = {
 			'whoami': this.getWhoami,
@@ -106,7 +106,7 @@ export default class ConduitAPI {
 			'getTasks': this.getTasks
 		}
 
-		if (validUris[req]) validUris[req].bind(this)(callback, params);
+		if (validUris[method]) validUris[method].bind(this)(callback, params);
 		else callback(null);
 	}
 }

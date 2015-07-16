@@ -9,7 +9,7 @@ export default class {
 	}
 
 	listen(req, res) {
-		api.handle(req.url, (err, data) => {
+		api.handle(req, (err, data) => {
 			if (err) {
 				console.log(err);
 			} else if (data && data.result) {
