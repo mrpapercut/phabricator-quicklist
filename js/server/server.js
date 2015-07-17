@@ -4,22 +4,37 @@ import Bacon	from 'baconjs';
 import request	from 'superagent';
 import qs		from 'qs';
 
+import storage	from '../lib/storage';
+
 import {
 	defaultEnd as end
 } from '../lib/server';
 
 const apiurl = 'http://localhost:3000/';
 
-function callApi(req, params) {
+function callApi(req, params, cb, apidetails) {
 	params = params || {};
 
-	return Bacon.fromNodeCallback(cb => {
+	function doRequest(req, params, cb, apidetails) {
 		request
-			.get(apiurl + req)
-			.query(qs.stringify(params))
-			.set('Accept', 'application/json')
-			.end(end(cb));
-	});
+		.get(apiurl + req)
+		.query(qs.stringify(params))
+		.set('Auth', btoa(JSON.stringify({
+			token: apidetails.token, // 'api-nkqei2lmty3c4gjbru2n5jjlyiie',
+			host: apidetails.host // 'http://symbaloo.tw:8085'
+		})))
+		.set('Accept', 'application/json')
+		.end(end(cb));
+	}
+
+	if (!apidetails) {
+		storage.get('apidetails', apidetails => {
+			doRequest(req, params, cb, apidetails);
+		});
+	} else {
+		doRequest(req, params, cb, apidetails);
+	}
+
 }
 
 export function listProjects() {
@@ -36,13 +51,13 @@ export function getUserByName(name) {
 	});
 }
 
-export function getTasks(details) {
+export function getTasks(details, callback) {
 	return callApi('getTasks', {
 		authorPHIDs: details.author || null,
 		projectPHIDs: details.project || null,
 		ownerPHIDs: details.owner || null,
 		status: details.status || 'status-open'
-	});
+	}, callback);
 }
 
 export function getTaskInfo(id) {
@@ -51,6 +66,10 @@ export function getTaskInfo(id) {
 	});
 }
 
-export function whoami() {
-	return callApi('whoami');
+export function whoami(apidetails, cb) {
+	return callApi('whoami', null, cb, apidetails);
+}
+
+export function testCredentials(apidetails, cb) {
+	return callApi('testCredentials', null, cb, apidetails);
 }

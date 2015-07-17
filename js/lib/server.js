@@ -4,8 +4,6 @@ export function onEnd(onSuccess, onError) {
 	return res => {
 		if (res.status === 200) {
 			onSuccess(res);
-		} else if (res.status === 401) {
-			window.location.href = '/login.form';
 		} else {
 			onError(res);
 		}

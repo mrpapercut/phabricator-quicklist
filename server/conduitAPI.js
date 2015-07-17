@@ -6,10 +6,15 @@ import qs from 'qs';
 
 import {defaultEnd as end} from '../js/lib/server';
 
+function atob(str) {
+	return new Buffer(str, 'base64').toString('binary');
+}
+
 export default class ConduitAPI {
-	constructor(token, host) {
-		this.token = token; // API Token
-		this.host = host; // Phabricator host url
+	setTokens(details) {
+		details = JSON.parse(atob(details['auth']));
+		this.token = details.token;
+		this.host = details.host;
 	}
 
 	doRequest(uri, params, callback) {
@@ -90,10 +95,15 @@ export default class ConduitAPI {
 		this.doRequest('maniphest.query', defParams, callback);
 	}
 
+	testCredentials(callback) {
+		this.doRequest('conduit.ping', null, callback);
+	}
+
 	handle(req, callback) {
 		const matched = req.url.match(/\/([a-zA-Z]+)(\?(.*))?/);
-
 		if (!matched) callback(null);
+
+		this.setTokens(req.headers);
 
 		const [url, method, qs, params] = matched.map(_ => _);
 
@@ -103,7 +113,8 @@ export default class ConduitAPI {
 			'listUsers': this.listUsers,
 			'getUserByName': this.getUserByName,
 			'getTaskInfo': this.getTaskInfo,
-			'getTasks': this.getTasks
+			'getTasks': this.getTasks,
+			'testCredentials': this.testCredentials
 		}
 
 		if (validUris[method]) validUris[method].bind(this)(callback, params);
