@@ -2,25 +2,50 @@
 
 import React from 'react';
 
-import {GetContext, StateStream} from '../mixins';
+import {GetContext} from '../mixins';
 
-const {div, a} = React.DOM;
+const {div, ul, li} = React.DOM;
 
 const TasksPage = React.createClass({
 
-	mixins: [GetContext, StateStream],
+	mixins: [GetContext],
 
-	stateStream() {
-		return this.ctx().stores.tasks
-			.map(store => ({
-				tasks: store.getTasks() || {}
-			}));
+	getInitialState() {
+		return {
+			tasks: null
+		};
+	},
+
+	componentWillMount() {
+		this.props.getTasks({
+			owner: 'PHID-USER-w4nlajeutuuhnigt33dx',
+			project: 'PHID-PROJ-xlhiqmafp6l662vzxjj3'
+		}, (err, res) => {
+			this.setState({
+				tasks: res.data
+			});
+		});
+	},
+
+	parseTasks() {
+		let tasks = [];
+
+		for (let i in this.state.tasks) {
+			const task = this.state.tasks[i];
+			tasks.push(li({
+				key: i,
+				'data-id': task.id,
+				'data-phid': i
+			}, task.title));
+		}
+
+		return ul({}, tasks);
 	},
 
 	render() {
 		return (
 			div({},
-				null
+				this.state.tasks ? this.parseTasks() : null
 			)
 		);
 	}
