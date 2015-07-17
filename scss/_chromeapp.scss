@@ -41,6 +41,13 @@
 	}
 }
 
-#container {
-	overflow-y: auto;
+body.chromeapp {
+	height: 640px;
+
+	#container {
+		width: calc(100% - 4em);
+		max-height: calc(100% - 5.6em);
+		padding: 1em 2em;
+		overflow-x: auto;
+	}
 }
