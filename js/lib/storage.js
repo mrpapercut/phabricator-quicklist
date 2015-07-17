@@ -31,11 +31,13 @@ const browserStorage = {
 
 const chromeStorage = {
 	set(name, data, callback) {
-		localstorage.set({name: data}, callback);
+		var obj = {};
+		obj[name] = data;
+		localstorage.set(obj, callback);
 	},
 
 	get(name, callback) {
-		localstorage.get({name}, callback);
+		localstorage.get(name, res => callback(res[name]));
 	},
 
 	remove(name, callback) {

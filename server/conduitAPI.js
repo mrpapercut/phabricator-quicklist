@@ -40,6 +40,10 @@ export default class ConduitAPI {
 		};
 	}
 
+	testCredentials(callback) {
+		this.doRequest('conduit.ping', null, callback);
+	}
+
 	getWhoami(callback) {
 		this.doRequest('user.whoami', null, callback);
 	}
@@ -93,10 +97,6 @@ export default class ConduitAPI {
 		}
 
 		this.doRequest('maniphest.query', defParams, callback);
-	}
-
-	testCredentials(callback) {
-		this.doRequest('conduit.ping', null, callback);
 	}
 
 	handle(req, callback) {

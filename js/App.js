@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	ctx.loadPage = loadPage;
 
 	storage.get('apidetails', (details) => {
-		if (details) {
+		if (details && details.hasOwnProperty('token') && details.hasOwnProperty('host')) {
 			ctx.apidetails = details;
 			loadPage(null, ctx);
 		} else {
