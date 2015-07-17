@@ -1,6 +1,7 @@
 @import 'reset';
 @import 'colors';
 @import 'fonts';
+@import 'buttons';
 @import 'chromeapp';
 
 body {
@@ -32,6 +33,14 @@ body {
 		}
 	}
 
+	input,
+	select,
+	textarea {
+		color: $grey;
+		font-size: 1em;
+		font-family: 'latoregular', sans;
+	}
+
 	#container {
 		width: calc(100% - 2em);
 		margin: 2em auto 0;
@@ -39,5 +48,26 @@ body {
 		color: $grey;
 		padding: 1em;
 		box-shadow: 0 5px 30px -15px;
+	}
+
+	&[data-page=login] {
+		form {
+			width: 80%;
+			margin: 0 auto;
+		}
+
+		input {
+			width: calc(100% - 2em);
+			height: 40px;
+			margin: 0 auto;
+			clear: both;
+			display: block;
+			margin-bottom: 1em;
+			padding: 0 1em;
+
+			&.error {
+				border: 1px solid #f00;
+			}
+		}
 	}
 }

@@ -1,0 +1,24 @@
+button {
+	font-size: 1em;
+	font-family: 'latoregular', sans;
+
+	min-width: 100px;
+	min-height: 40px;
+
+	background: $darkblue;
+	color: #fff;
+
+	border: none;
+	cursor: pointer;
+	outline: none;
+
+	-webkit-transition: all 0.25s;
+	   -moz-transition: all 0.25s;
+	     -o-transition: all 0.25s;
+		    transition: all 0.25s;
+
+	&:hover {
+		background: $purple;
+		color: #fff;
+	}
+}
