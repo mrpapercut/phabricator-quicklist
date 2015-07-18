@@ -7,7 +7,7 @@
 	"main": "app.js",
 	"scripts": {
 		"build": "gulp",
-		"start": "./node_modules/.bin/babel-node ./server/app.js"
+		"start": "node ./server/app.js"
 	},
 	"devDependencies": {
 		"babel-eslint": "^2.0.2",

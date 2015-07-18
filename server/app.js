@@ -1,5 +1,7 @@
 'use strict';
 
+require('babel/register');
+
 var http = require('http');
 var Handler = require('./handler');
 
