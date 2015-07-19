@@ -27,6 +27,10 @@ const TasksPage = React.createClass({
 		});
 	},
 
+	loadTask(task_id) {
+		this.ctx().loadPage('taskdetail', ctx, task_id);
+	},
+
 	parseTasks() {
 		let tasks = [];
 
@@ -35,7 +39,9 @@ const TasksPage = React.createClass({
 			tasks.push(li({
 				key: i,
 				'data-id': task.id,
-				'data-phid': i
+				'data-phid': i,
+				className: 'is-button',
+				onClick: () => this.loadTask(task.id)
 			}, task.title));
 		}
 

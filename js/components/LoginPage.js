@@ -18,7 +18,9 @@ const LoginPage = React.createClass({
 	},
 
 	resetErrors(e) {
-		console.log(e);
+		this.setState({
+			errors: []
+		});
 	},
 
 	onSubmit(e) {
@@ -36,7 +38,7 @@ const LoginPage = React.createClass({
 			errors: errors
 		});
 
-		if (this.state.errors.length === 0) {
+		if (errors.length === 0) {
 			const tokenElement = this.refs['token'].getDOMNode();
 			const hostElement = this.refs['host'].getDOMNode();
 

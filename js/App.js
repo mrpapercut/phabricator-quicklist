@@ -10,9 +10,9 @@ const loadPage = function(page, ctx) {
 	if (!page && ctx.apidetails) {
 		storage.get('lastpage', (lastpage) => {
 			if (lastpage && Pages[lastpage] && lastpage !== 'login') {
-				loadPage(lastpage);
+				loadPage(lastpage, ctx);
 			} else {
-				loadPage('tasks');
+				loadPage('tasks', ctx);
 			}
 		});
 	} else if (page && Pages[page]) {
@@ -21,7 +21,7 @@ const loadPage = function(page, ctx) {
 			loadedPage = new Pages[page](ctx);
 		});
 	} else {
-		loadPage('login');
+		loadPage('login', ctx);
 	}
 };
 
@@ -31,7 +31,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	ctx.loadPage = loadPage;
 
 	storage.get('apidetails', (details) => {
-		if (details && details.hasOwnProperty('token') && details.hasOwnProperty('host')) {
+		if (details
+			&& details.hasOwnProperty('token') && details.token !== ''
+			&& details.hasOwnProperty('host') && details.host !== '') {
 			ctx.apidetails = details;
 			loadPage(null, ctx);
 		} else {
