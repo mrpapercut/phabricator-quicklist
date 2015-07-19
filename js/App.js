@@ -6,7 +6,7 @@ import storage	from './lib/storage';
 
 let loadedPage = null;
 
-const loadPage = function(page, ctx) {
+const loadPage = function(page, ctx, params) {
 	if (!page && ctx.apidetails) {
 		storage.get('lastpage', (lastpage) => {
 			if (lastpage && Pages[lastpage] && lastpage !== 'login') {
@@ -18,7 +18,7 @@ const loadPage = function(page, ctx) {
 	} else if (page && Pages[page]) {
 		storage.set('lastpage', page, (res) => {
 			document.body.setAttribute('data-page', page);
-			loadedPage = new Pages[page](ctx);
+			loadedPage = new Pages[page](ctx, params);
 		});
 	} else {
 		loadPage('login', ctx);

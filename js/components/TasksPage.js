@@ -28,7 +28,8 @@ const TasksPage = React.createClass({
 	},
 
 	loadTask(task_id) {
-		this.ctx().loadPage('taskdetail', ctx, task_id);
+		const ctx = this.ctx();
+		ctx.loadPage('tasks', ctx, {task_id: task_id});
 	},
 
 	parseTasks() {
@@ -49,6 +50,8 @@ const TasksPage = React.createClass({
 	},
 
 	render() {
+		if (this.props.params) console.log(this.props.params);
+
 		return (
 			div({},
 				this.state.tasks ? this.parseTasks() : null
