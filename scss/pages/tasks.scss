@@ -1,0 +1,30 @@
+body[data-page=tasks] {
+	li {
+		position: relative;
+		list-style-type: none;
+		padding: 0.5em 2em 0.5em 3em;
+		background-color: #fff;
+		margin: 0 0 0.2em;
+		box-shadow: 2px 2px 3px rgba(100, 100, 100, 0.05);
+		border-right: 1px solid #a7d7f9;
+		border-bottom: 1px solid #a7d7f9;
+
+		-webkit-transition: all 0.25s;
+		-moz-transition: all 0.25s;
+		-o-transition: all 0.25s;
+		transition: all 0.25s;
+
+		&:before {
+			content: "[T" attr(data-id) "]";
+			position: absolute;
+			top: 0;
+			left: 0;
+			font-size: 0.6em;
+			color: #fff;
+			background: #222;
+			padding: 0.3em 0.5em;
+			opacity: 0.8;
+			box-shadow: 1px 1px 1px #000;
+		}
+	}
+}

@@ -2,6 +2,7 @@
 @import 'colors';
 @import 'fonts';
 @import 'buttons';
+@import 'pages/index';
 @import 'chromeapp';
 
 body {
@@ -33,6 +34,34 @@ body {
 		}
 	}
 
+	li {
+		list-style-type: none;
+		padding: 0.5em 2em;
+		background-color: #fff;
+		margin: 0 0 0.2em;
+		box-shadow: 2px 2px 3px $lightgrey;
+		border-right: 1px solid $blue;
+		border-bottom: 1px solid $blue;
+
+		-webkit-transition: all 0.25s;
+		   -moz-transition: all 0.25s;
+			 -o-transition: all 0.25s;
+				transition: all 0.25s;
+
+		&:hover {
+			background: $blue;
+			color: #fff;
+
+			&:before {
+				color: #fff;
+			}
+		}
+
+		&.is-button {
+			cursor: pointer;
+		}
+	}
+
 	input,
 	select,
 	textarea {
@@ -51,7 +80,7 @@ body {
 	#container {
 		width: calc(100% - 1.95em);
 		margin: 0 auto;
-		background: #fff;
+		background: $grey;
 		color: $grey;
 		padding: 1em;
 		box-shadow: 0 5px 30px -15px;
