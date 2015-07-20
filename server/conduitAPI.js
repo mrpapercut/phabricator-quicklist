@@ -77,7 +77,9 @@ export default class ConduitAPI {
 	 * }
 	 */
 	getTaskInfo(callback, params) {
-		this.doRequest('maniphest.info', params, callback);
+		params = qs.parse(params);
+
+		this.doRequest('maniphest.info', {task_id: parseInt(params.task_id, 10)}, callback);
 	}
 
 	/**

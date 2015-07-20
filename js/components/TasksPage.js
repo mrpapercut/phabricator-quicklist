@@ -51,8 +51,8 @@ const TasksPage = React.createClass({
 	},
 
 	parseTask() {
-		storage.get('curuser', res => {
-			console.log(res);
+		this.props.getTaskInfo(this.props.params.task_id, (err, res) => {
+			console.log(res.data);
 		});
 	},
 

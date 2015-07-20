@@ -63,10 +63,10 @@ export function getTasks(details, callback) {
 	return callApi('getTasks', detailsObj, callback);
 }
 
-export function getTaskInfo(id) {
+export function getTaskInfo(id, cb) {
 	return callApi('getTaskInfo', {
 		task_id: id
-	});
+	}, cb);
 }
 
 export function whoami(apidetails, cb) {
