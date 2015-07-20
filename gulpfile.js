@@ -19,6 +19,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer')
 var source = require('vinyl-source-stream')
 
+var exec = require('child_process').exec;
+
 var jsfiles = './js/*.js';
 
 var noSourceMaps = false;
@@ -66,7 +68,9 @@ function createJSBundle(options) {
 
 		stream = stream.on('error', handleError);
 
-		stream = stream.pipe(gulp.dest(options.output));
+		stream = stream
+			.pipe(gulp.dest(options.output))
+			.pipe(gulp.dest('./chromeapp/build'));
 
 		return stream;
 	}
@@ -118,7 +122,10 @@ function bundleCSS(watch) {
 			})
 		);
 
-	stream = stream.pipe(gulp.dest('./build/css'));
+	stream = stream
+		.pipe(gulp.dest('./build/css'))
+		.pipe(gulp.dest('./chromeapp/build/css'));
+
 	if (watch) return stream;
 }
 
@@ -139,11 +146,11 @@ gulp.task('css-minify', ['css'], function() {
 		.pipe(gulp.dest('./build/css'));
 });
 
-gulp.task('watch', ['set-dev-env', 'js-watch', 'css', 'css-watch']);
-
-gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify']);
-
-gulp.task('chromeapp', ['set-chrome-env', 'js', 'css'], function() {
+gulp.task('movechrome', function() {
 	gulp.src('./build/**/*.*')
 		.pipe(gulp.dest('./chromeapp/build/'));
 });
+
+gulp.task('watch', ['set-dev-env', 'js-watch', 'css', 'css-watch']);
+
+gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify', 'movechrome']);
