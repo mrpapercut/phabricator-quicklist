@@ -45,9 +45,9 @@ body.chromeapp {
 	height: 640px;
 
 	#container {
-		width: calc(100% - 4em);
+		width: 100%;
 		max-height: calc(100% - 5.6em);
-		padding: 1em 2em;
+		padding: 1em 0;
 		overflow-x: auto;
 	}
 }
