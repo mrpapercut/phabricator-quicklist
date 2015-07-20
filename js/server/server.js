@@ -20,8 +20,8 @@ function callApi(req, params, cb, apidetails) {
 		.get(apiurl + req)
 		.query(qs.stringify(params))
 		.set('Auth', btoa(JSON.stringify({
-			token: apidetails.token, // 'api-nkqei2lmty3c4gjbru2n5jjlyiie',
-			host: apidetails.host // 'http://symbaloo.tw:8085'
+			token: apidetails.token,
+			host: apidetails.host
 		})))
 		.set('Accept', 'application/json')
 		.end(end(cb));
@@ -52,12 +52,15 @@ export function getUserByName(name) {
 }
 
 export function getTasks(details, callback) {
-	return callApi('getTasks', {
-		authorPHIDs: details.author || null,
-		projectPHIDs: details.project || null,
-		ownerPHIDs: details.owner || null,
+	let detailsObj = {
 		status: details.status || 'status-open'
-	}, callback);
+	};
+
+	if (details.author) detailsObj.authorPHIDs = details.author;
+	if (details.owner) detailsObj.ownerPHIDs = details.owner;
+	if (details.project) detailsObj.projectPHIDs = details.project;
+
+	return callApi('getTasks', detailsObj, callback);
 }
 
 export function getTaskInfo(id) {

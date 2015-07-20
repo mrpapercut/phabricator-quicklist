@@ -64,6 +64,8 @@ export default class ConduitAPI {
 	 * }
 	 */
 	getUserByName(callback, params) {
+		params = qs.parse(params);
+
 		this.doRequest('user.query', params, callback);
 	}
 
@@ -89,12 +91,16 @@ export default class ConduitAPI {
 	 * }
 	 */
 	getTasks(callback, params) {
+		params = qs.parse(params);
+
 		const defParams = {
-			authorPHIDs: params.authorPHIDs || null,
-			ownerPHIDs: params.ownerPHIDs || null,
-			projectPHIDs: params.projectPHIDs || null,
 			status: params.status || 'status-open'
 		}
+
+		if (params.authorPHIDs) defParams.authorPHIDs = [params.authorPHIDs];
+		if (params.ownerPHIDs) defParams.ownerPHIDs = [params.ownerPHIDs];
+		if (params.projectPHIDs) defParams.projectPHIDs = [params.projectPHIDs];
+
 
 		this.doRequest('maniphest.query', defParams, callback);
 	}
