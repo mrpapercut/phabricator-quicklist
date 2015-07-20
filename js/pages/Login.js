@@ -15,14 +15,21 @@ const loginPage = React.createFactory(LoginPage);
 
 export default class Login {
 	constructor(ctx) {
-		const storeApiDetails = (details) => {
-			storage.set('apidetails', details, (res) => {
+		const storeApiDetails = details => {
+			storage.set('apidetails', details, res => {
 				ctx.loadPage('tasks', ctx);
 			});
-		}
+		};
+
+		const storeCurrentUser = (user, cb) => {
+			storage.set('curuser', user, res => {
+				cb();
+			});
+		};
 
 		React.render(loginPage({
 			ctx: ctx,
+			storeCurrentUser: storeCurrentUser,
 			storeApiDetails: storeApiDetails,
 			testCredentials: testCredentials,
 			getWhoami: whoami

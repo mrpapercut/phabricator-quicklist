@@ -3,6 +3,7 @@
 import React from 'react';
 
 import {GetContext} from '../mixins';
+import storage from '../lib/storage';
 
 const {div, ul, li} = React.DOM;
 
@@ -49,11 +50,16 @@ const TasksPage = React.createClass({
 		return ul({}, tasks);
 	},
 
-	render() {
-		if (this.props.params) console.log(this.props.params);
+	parseTask() {
+		storage.get('curuser', res => {
+			console.log(res);
+		});
+	},
 
+	render() {
 		return (
 			div({},
+				this.props.params ? this.parseTask() :
 				this.state.tasks ? this.parseTasks() : null
 			)
 		);

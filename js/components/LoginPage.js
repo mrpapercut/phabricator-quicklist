@@ -61,7 +61,9 @@ const LoginPage = React.createClass({
 								errors: errors
 							});
 						} else {
-							this.props.storeApiDetails(apidetails);
+							this.props.storeCurrentUser(res.data, () =>
+								this.props.storeApiDetails(apidetails)
+							);
 						}
 					});
 				}
