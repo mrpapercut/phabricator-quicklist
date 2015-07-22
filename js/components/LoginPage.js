@@ -68,6 +68,10 @@ const LoginPage = React.createClass({
 		}
 	},
 
+	isError(ref) {
+		return this.state.errors.indexOf(ref) !== -1 ? 'error' : null;
+	},
+
 	render() {
 
 		return (
@@ -79,14 +83,14 @@ const LoginPage = React.createClass({
 						type: 'text',
 						placeholder: 'Conduit API key',
 						ref: 'token',
-						className: this.state.errors.indexOf('token') !== -1 ? 'error' : null,
+						className: this.isError('token'),
 						onFocus: this.resetErrors
 					}),
 					input({
 						type: 'url',
 						placeholder: 'Phabricator url',
 						ref: 'host',
-						className: this.state.errors.indexOf('host') !== -1 ? 'error' : null,
+						className: this.isError('host'),
 						onFocus: this.resetErrors
 					}),
 					button({
