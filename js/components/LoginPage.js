@@ -39,12 +39,9 @@ const LoginPage = React.createClass({
 		});
 
 		if (errors.length === 0) {
-			const tokenElement = React.findDOMNode(this.refs.token).value;
-			const hostElement = React.findDOMNode(this.refs.host).value;
-
 			const apidetails = {
-				token: tokenElement,
-				host: hostElement
+				token: React.findDOMNode(this.refs.token).value,
+				host: React.findDOMNode(this.refs.host).value
 			};
 
 			this.props.testCredentials(apidetails, (err, res) => {
