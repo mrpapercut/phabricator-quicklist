@@ -2,7 +2,7 @@
 
 import request from 'superagent';
 import assign from 'object-assign';
-import qs from 'qs';
+import querystring from 'qs';
 
 import {defaultEnd as end} from '../js/lib/server';
 
@@ -22,7 +22,7 @@ export default class ConduitAPI {
 
 		request
 			.post(this.host + '/api/' + uri)
-			.send(qs.stringify(this.formatQuery(params)))
+			.send(querystring.stringify(this.formatQuery(params)))
 			.end(end(callback));
 	}
 
@@ -64,8 +64,6 @@ export default class ConduitAPI {
 	 * }
 	 */
 	getUserByName(callback, params) {
-		params = qs.parse(params);
-
 		this.doRequest('user.query', params, callback);
 	}
 
@@ -73,13 +71,22 @@ export default class ConduitAPI {
 	 * Get task by id
 	 * @param params
 	 * {
-	 *   task_id: String
+	 *   task_id: Int
 	 * }
 	 */
 	getTaskInfo(callback, params) {
-		params = qs.parse(params);
-
 		this.doRequest('maniphest.info', {task_id: parseInt(params.task_id, 10)}, callback);
+	}
+
+	/**
+	 * Get task activity by id
+	 * @param params
+	 * {
+	 *   ids: Array
+	 * }
+	 */
+	getTaskActivity(callback, params) {
+		this.doRequest('maniphest.gettasktransactions', {ids: [params.id]}, callback);
 	}
 
 	/**
@@ -93,8 +100,6 @@ export default class ConduitAPI {
 	 * }
 	 */
 	getTasks(callback, params) {
-		params = qs.parse(params);
-
 		const defParams = {
 			status: params.status || 'status-open'
 		}
@@ -120,12 +125,13 @@ export default class ConduitAPI {
 			'listProjects': this.listProjects,
 			'listUsers': this.listUsers,
 			'getUserByName': this.getUserByName,
-			'getTaskInfo': this.getTaskInfo,
 			'getTasks': this.getTasks,
+			'getTaskInfo': this.getTaskInfo,
+			'getTaskActivity': this.getTaskActivity,
 			'testCredentials': this.testCredentials
 		}
 
-		if (validUris[method]) validUris[method].bind(this)(callback, params);
+		if (validUris[method]) validUris[method].bind(this)(callback, querystring.parse(params));
 		else callback(null);
 	}
 }

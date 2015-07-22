@@ -3,7 +3,6 @@
 import React from 'react';
 
 import {GetContext} from '../mixins';
-import storage from '../lib/storage';
 
 const {div, ul, li} = React.DOM;
 
@@ -30,7 +29,7 @@ const TasksPage = React.createClass({
 
 	loadTask(task_id) {
 		const ctx = this.ctx();
-		ctx.loadPage('tasks', ctx, {task_id: task_id});
+		ctx.loadPage('taskdetails', ctx, {task_id: task_id});
 	},
 
 	parseTasks() {

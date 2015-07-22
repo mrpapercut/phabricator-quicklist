@@ -3,8 +3,7 @@
 import React from 'react';
 
 import {
-	getTasks,
-	getTaskInfo
+	getTasks
 } from '../server/server';
 
 import TasksPage from '../components/TasksPage';
@@ -16,8 +15,7 @@ export default class Tasks {
 		React.render(tasksPage({
 			ctx: ctx,
 			params: params,
-			getTasks: getTasks,
-			getTaskInfo: getTaskInfo
+			getTasks: getTasks
 		}), document.getElementById('container'));
 	}
 }

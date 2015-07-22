@@ -69,6 +69,12 @@ export function getTaskInfo(id, cb) {
 	}, cb);
 }
 
+export function getTaskActivity(id, cb) {
+	return callApi('getTaskActivity', {
+		id: id
+	}, cb);
+}
+
 export function whoami(apidetails, cb) {
 	return callApi('whoami', null, cb, apidetails);
 }
