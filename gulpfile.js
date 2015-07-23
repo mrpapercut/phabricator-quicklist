@@ -149,6 +149,9 @@ gulp.task('css-minify', ['css'], function() {
 gulp.task('movechrome', function() {
 	gulp.src('./build/**/*.*')
 		.pipe(gulp.dest('./chromeapp/build/'));
+
+	gulp.src('./fonts/**/*.*')
+		.pipe(gulp.dest('./chromeapp/build/fonts/'));
 });
 
 gulp.task('watch', ['set-dev-env', 'js-watch', 'css', 'css-watch']);

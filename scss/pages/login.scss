@@ -1,0 +1,22 @@
+body {
+	&[data-page=login] {
+		form {
+			width: 80%;
+			margin: 0 auto;
+		}
+
+		input {
+			width: calc(100% - 2em);
+			height: 40px;
+			margin: 0 auto;
+			clear: both;
+			display: block;
+			margin-bottom: 1em;
+			padding: 0 1em;
+
+			&.error {
+				border: 1px solid #f00;
+			}
+		}
+	}
+}

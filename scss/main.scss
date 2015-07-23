@@ -2,12 +2,13 @@
 @import 'colors';
 @import 'fonts';
 @import 'buttons';
+@import 'components';
 @import 'pages/index';
 @import 'chromeapp';
 
 body {
 	background: $not-white;
-	font-family: 'latoregular', sans;
+	font-family: 'LatoLatinLight', sans;
 	font-size: 1.2em;
 
 	margin: 0 auto;
@@ -67,42 +68,6 @@ body {
 	textarea {
 		color: $grey;
 		font-size: 1em;
-		font-family: 'latoregular', sans;
-	}
-
-	#header {
-		width: 100%;
-		height: 2em;
-		background: #fff;
-		border-bottom: 1px solid $blue;
-	}
-
-	#container {
-		width: calc(100% - 1.95em);
-		margin: 0 auto;
-		background: $grey;
-		color: #fff;
-		padding: 1em;
-	}
-
-	&[data-page=login] {
-		form {
-			width: 80%;
-			margin: 0 auto;
-		}
-
-		input {
-			width: calc(100% - 2em);
-			height: 40px;
-			margin: 0 auto;
-			clear: both;
-			display: block;
-			margin-bottom: 1em;
-			padding: 0 1em;
-
-			&.error {
-				border: 1px solid #f00;
-			}
-		}
+		font-family: 'LatoLatinLight', sans;
 	}
 }
