@@ -39,12 +39,9 @@ const LoginPage = React.createClass({
 		});
 
 		if (errors.length === 0) {
-			const tokenElement = this.refs['token'].getDOMNode();
-			const hostElement = this.refs['host'].getDOMNode();
-
 			const apidetails = {
-				token: tokenElement.value,
-				host: hostElement.value
+				token: React.findDOMNode(this.refs.token).value,
+				host: React.findDOMNode(this.refs.host).value
 			};
 
 			this.props.testCredentials(apidetails, (err, res) => {
@@ -71,6 +68,10 @@ const LoginPage = React.createClass({
 		}
 	},
 
+	isError(ref) {
+		return this.state.errors.indexOf(ref) !== -1 ? 'error' : null;
+	},
+
 	render() {
 
 		return (
@@ -82,14 +83,14 @@ const LoginPage = React.createClass({
 						type: 'text',
 						placeholder: 'Conduit API key',
 						ref: 'token',
-						className: this.state.errors.indexOf('token') !== -1 ? 'error' : null,
+						className: this.isError('token'),
 						onFocus: this.resetErrors
 					}),
 					input({
 						type: 'url',
 						placeholder: 'Phabricator url',
 						ref: 'host',
-						className: this.state.errors.indexOf('host') !== -1 ? 'error' : null,
+						className: this.isError('host'),
 						onFocus: this.resetErrors
 					}),
 					button({
