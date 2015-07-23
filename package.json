@@ -34,6 +34,7 @@
 		"qs": "^4.0.0",
 		"ramda": "^0.11.0",
 		"react": "^0.13.0",
+		"redux": "^0.12.0",
 		"superagent": "^0.21.0"
 	},
 	"readme": "Readme coming soon"
