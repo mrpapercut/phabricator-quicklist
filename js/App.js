@@ -35,11 +35,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	ctx.loadPage = loadPage;
 
-	React.render(header({
-		ctx: ctx
-	}), document.getElementById('header'));
+	storage.get('curuser', user => {
+		if (user) ctx.setCurrentUser(user);
+	});
 
-	storage.get('apidetails', (details) => {
+	storage.get('apidetails', details => {
 		if (details
 			&& details.hasOwnProperty('token') && details.token !== ''
 			&& details.hasOwnProperty('host') && details.host !== '') {
@@ -49,6 +49,10 @@ window.addEventListener('DOMContentLoaded', () => {
 		} else {
 			loadPage('login', ctx);
 		}
+
+		React.render(header({
+			ctx: ctx
+		}), document.getElementById('header'));
 	});
 
 });

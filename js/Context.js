@@ -13,6 +13,14 @@ class Context {
 	getDispatcher() {
 		return this.dispatcher;
 	}
+
+	setCurrentUser(user) {
+		this.currentUser = user;
+	}
+
+	getCurrentUser() {
+		return this.currentUser;
+	}
 }
 
 export default Context;
