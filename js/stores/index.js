@@ -1,12 +1,12 @@
 'use strict';
 
-import AppStore from './AppStore';
+import appStore from './AppStore';
 import ProjectsStore from './ProjectsStore';
 import TasksStore from './TasksStore';
 import UsersStore from './UsersStore';
 
 export default {
-	AppStore,
+	appStore,
 	ProjectsStore,
 	TasksStore,
 	UsersStore

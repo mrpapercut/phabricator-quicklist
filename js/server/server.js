@@ -83,7 +83,7 @@ export function testCredentials(apidetails, cb) {
 	return callApi('testCredentials', null, cb, apidetails);
 }
 
-export function getImage(id, cb) {
+export function getFile(id, cb) {
 	return callApi('getFile', {
 		phid: id
 	}, cb);

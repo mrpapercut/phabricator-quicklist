@@ -3,8 +3,12 @@
 import React	from 'react';
 
 import Context	from './Context';
+import {createReduxConnector} from './lib/createReduxConnector';
+
 import Pages	from './pages';
-import storage	from './lib/storage';
+
+import {appStore} from './stores/AppStore';
+import * as actions from './actions/AppActions';
 
 import Header	from './components/Header';
 const header = React.createFactory(Header);
@@ -12,6 +16,8 @@ const header = React.createFactory(Header);
 let loadedPage = null;
 
 const loadPage = function(page, ctx, params) {
+	const {storage} = ctx;
+
 	if (!page && ctx.apidetails) {
 		storage.get('lastpage', (lastpage) => {
 			if (lastpage && Pages[lastpage] && lastpage !== 'login' && lastpage !== 'taskdetails') {
@@ -32,11 +38,17 @@ const loadPage = function(page, ctx, params) {
 
 window.addEventListener('DOMContentLoaded', () => {
 	const ctx = new Context();
+	const {storage} = ctx;
+	const redux = ctx.getRedux();
 
 	ctx.loadPage = loadPage;
 
+	ctx.registerStores({
+		appStore: appStore
+	});
+
 	storage.get('curuser', user => {
-		if (user) ctx.setCurrentUser(user);
+		if (user) redux.dispatch(actions.setCurrentUser(user));
 	});
 
 	storage.get('apidetails', details => {
@@ -49,10 +61,13 @@ window.addEventListener('DOMContentLoaded', () => {
 		} else {
 			loadPage('login', ctx);
 		}
-
-		React.render(header({
-			ctx: ctx
-		}), document.getElementById('header'));
 	});
 
+	React.render(
+		React.createFactory(createReduxConnector({
+			actions: actions,
+			component: header,
+			getAvatar: (imgPHID) => redux.dispatch(actions.getImage(imgPHID))
+		}))({ctx}), document.getElementById('header')
+	);
 });

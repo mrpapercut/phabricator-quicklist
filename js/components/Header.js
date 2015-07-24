@@ -2,27 +2,14 @@
 
 import React from 'react';
 
-import {GetContext} from '../mixins';
-import storage from '../lib/storage';
+import * as actions from '../actions/AppActions';
 
 const {div, img, span, button} = React.DOM;
 
-import {
-	getImage
-} from '../server/server';
-
 const Header = React.createClass({
 
-	mixins: [GetContext],
-
-	getInitialState() {
-		return {
-			currentUser: {},
-			userImage: null
-		}
-	},
-
 	componentDidMount() {
+		/*
 		const currentUser = this.ctx().getCurrentUser();
 
 		this.setState({
@@ -32,7 +19,7 @@ const Header = React.createClass({
 		if (currentUser.image) {
 			const imagePHID = currentUser.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1];
 
-			getImage(imagePHID, (err, res) => {
+			getFile(imagePHID, (err, res) => {
 				if (err) {
 					console.warn(err);
 				} else {
@@ -42,24 +29,36 @@ const Header = React.createClass({
 				}
 			});
 		}
+		*/
 	},
 
 	logout(e) {
 		e.preventDefault();
 
-		const ctx = this.ctx();
+		const ctx = this.props.ctx;
 		storage.clear(() => ctx.loadPage('login', ctx));
 	},
 
+	getAvatar(user) {
+		if (!user) return null;
+
+		const imgPHID = user.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1];
+
+		const redux = this.props.ctx.getRedux();
+		redux.dispatch(actions.getImage(imgPHID));
+		console.log(this.props);
+		// this.props.getAvatar(imgPHID);
+	},
+
 	render() {
+		const {appStore} = this.props;
+		const currentUser = appStore.getCurrentUser() || {};
+
 		return div({},
-			this.state.userImage ? img({
-				src: this.state.userImage,
-				className: 'userimg'
-			}) : null,
+			// currentUser.image ? this.getAvatar(currentUser) : null,
 			span({
 				className: 'username'
-			}, this.state.currentUser.userName || null),
+			}, currentUser.userName || null),
 			button({
 				id: 'logoutbutton',
 				type: 'button',

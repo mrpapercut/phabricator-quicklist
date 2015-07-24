@@ -1,30 +1,56 @@
 'use strict';
 
-export default class AppStore {
+import {OrderedMap} from 'immutable';
 
-	constructor(currentPage, details) {
-		this.currentPage = currentPage || null;
-		this.details = details || null;
+import {
+	SET_CURRENTUSER,
+	GET_CURRENTUSER,
+	SET_AVATAR,
+	GET_AVATAR
+} from '../constants/actionTypes';
+
+export class AppStore {
+
+	constructor(userdetails, avatar) {
+		this.userdetails = userdetails || null;
+		this.avatar = avatar || null;
 	}
 
 	reinit() {
-		return new AppStore(this.currentPage, this.details);
+		return new AppStore(this.userdetails, this.avatar);
 	}
 
-	setCurrentPage(page) {
-		this.currentPage = page;
-	}
-
-	getCurrentPage() {
-		return this.currentPage;
-	}
-
-	setWhoami(details) {
-		this.details = details;
+	setCurrentUser(details) {
+		this.userdetails = details;
 		return this.reinit();
 	}
 
-	getWhoami() {
-		return this.details;
+	getCurrentUser() {
+		return this.userdetails;
 	}
+
+	setAvatar(str) {
+		this.avatar = str;
+		return this.reinit();
+	}
+
+	getAvatar() {
+		return this.avatar;
+	}
+}
+
+export function appStore(store = new AppStore(), action = {}) {
+	const {type, data} = action;
+	switch (type) {
+		case SET_CURRENTUSER:
+			return store.setCurrentUser(data);
+		case GET_CURRENTUSER:
+			return store.getCurrentUser();
+		case SET_AVATAR:
+			return store.setAvatar(data);
+		case GET_AVATAR:
+			return store.getAvatar();
+	}
+
+	return store;
 }
