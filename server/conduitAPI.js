@@ -10,6 +10,12 @@ function atob(str) {
 	return new Buffer(str, 'base64').toString('binary');
 }
 
+function imgToDataURI(buffer, type) {
+	var base64data = new Buffer(buff, 'binary').toString('base64');
+	if (base64data) return 'data:' + type + ';base64,' + base64data;
+	else return false;
+}
+
 export default class ConduitAPI {
 	setTokens(details) {
 		details = JSON.parse(atob(details['auth']));
@@ -38,6 +44,10 @@ export default class ConduitAPI {
 			output: 'json',
 			__conduit__: 1
 		};
+	}
+
+	getFile(callback, params) {
+		this.doRequest('file.download', params, callback);
 	}
 
 	testCredentials(callback) {
@@ -128,7 +138,8 @@ export default class ConduitAPI {
 			'getTasks': this.getTasks,
 			'getTaskInfo': this.getTaskInfo,
 			'getTaskActivity': this.getTaskActivity,
-			'testCredentials': this.testCredentials
+			'testCredentials': this.testCredentials,
+			'getFile': this.getFile
 		}
 
 		if (validUris[method]) validUris[method].bind(this)(callback, querystring.parse(params));
