@@ -146,14 +146,17 @@ gulp.task('css-minify', ['css'], function() {
 		.pipe(gulp.dest('./build/css'));
 });
 
+gulp.task('copyfonts', function() {
+	gulp.src('./fonts/**/*.*')
+		.pipe(gulp.dest('./build/fonts'))
+		.pipe(gulp.dest('./chromeapp/build/fonts/'));
+});
+
 gulp.task('movechrome', function() {
 	gulp.src('./build/**/*.*')
 		.pipe(gulp.dest('./chromeapp/build/'));
-
-	gulp.src('./fonts/**/*.*')
-		.pipe(gulp.dest('./chromeapp/build/fonts/'));
 });
 
 gulp.task('watch', ['set-dev-env', 'js-watch', 'css', 'css-watch']);
 
-gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify', 'movechrome']);
+gulp.task('default', ['no-sourcemaps', 'js', 'css', 'js-minify', 'css-minify', 'copyfonts', 'movechrome']);
