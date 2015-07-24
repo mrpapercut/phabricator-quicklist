@@ -6,8 +6,8 @@ body[data-page=tasks] {
 		background-color: #fff;
 		margin: 0 0 0.2em;
 		box-shadow: 2px 2px 3px rgba(100, 100, 100, 0.05);
-		border-right: 1px solid #a7d7f9;
-		border-bottom: 1px solid #a7d7f9;
+		border-right: 1px solid $blue;
+		border-bottom: 1px solid $blue;
 
 		-webkit-transition: all 0.25s;
 		-moz-transition: all 0.25s;
@@ -26,5 +26,33 @@ body[data-page=tasks] {
 			opacity: 0.8;
 			box-shadow: 1px 1px 1px #000;
 		}
+	}
+}
+
+body[data-page=taskdetails] {
+	.taskTitle {
+		padding: 0.5em 2em 0.5em 3em;
+		background: $lightgrey;
+		margin: 0 0 0.2em;
+		box-shadow: 2px 2px 3px rgba(100, 100, 100, 0.05);
+		border-bottom: 1px solid $blue;
+		position: relative;
+
+		&:before {
+			content: "[" attr(data-status) "]";
+			position: absolute;
+			top: 0;
+			left: 0;
+			font-size: 0.6em;
+			color: #fff;
+			background: $grey;
+			padding: 0.3em 0.5em;
+			opacity: 0.8;
+			box-shadow: 1px 1px 1px #000;
+		}
+	}
+
+	.taskDescription {
+		padding: 0.5em 1em;
 	}
 }

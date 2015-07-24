@@ -5,7 +5,7 @@ import React from 'react';
 import {GetContext} from '../mixins';
 import storage from '../lib/storage';
 
-const {div, h2} = React.DOM;
+const {div, h2, span} = React.DOM;
 
 const TaskDetailsPage = React.createClass({
 
@@ -37,16 +37,18 @@ const TaskDetailsPage = React.createClass({
 	},
 
 	parseTask() {
-		const task = this.state.task;
-
-		console.log(task);
+		const {task} = this.state;
 
 		return div({
 			className: 'taskdetail'
 		},
-			h2({},
-				task.title
-			)
+			h2({
+				className: 'taskTitle status-' + task.status,
+				'data-status': task.statusName
+			}, task.title),
+			div({
+				className: 'taskDescription'
+			}, task.description)
 		);
 	},
 
