@@ -8,7 +8,7 @@ import storage from '../lib/storage';
 import {
 	whoami,
 	testCredentials
-} from '../server/server';
+} from '../server';
 
 import LoginPage from '../components/LoginPage';
 const loginPage = React.createFactory(LoginPage);

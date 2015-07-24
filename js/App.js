@@ -48,7 +48,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 
 	storage.get('curuser', user => {
-		if (user) redux.dispatch(actions.setCurrentUser(user));
+		if (user) {
+			redux.dispatch(actions.setCurrentUser(user));
+			redux.dispatch(actions.getImage(user.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1]));
+		}
 	});
 
 	storage.get('apidetails', details => {
@@ -66,8 +69,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	React.render(
 		React.createFactory(createReduxConnector({
 			actions: actions,
-			component: header,
-			getAvatar: (imgPHID) => redux.dispatch(actions.getImage(imgPHID))
+			component: header
 		}))({ctx}), document.getElementById('header')
 	);
 });

@@ -4,7 +4,7 @@ import React from 'react';
 
 import {
 	getTasks
-} from '../server/server';
+} from '../server';
 
 import TasksPage from '../components/TasksPage';
 const tasksPage = React.createFactory(TasksPage);

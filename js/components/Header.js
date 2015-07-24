@@ -2,60 +2,51 @@
 
 import React from 'react';
 
-import * as actions from '../actions/AppActions';
+import {
+	getFile
+} from '../server';
 
 const {div, img, span, button} = React.DOM;
 
 const Header = React.createClass({
 
-	componentDidMount() {
-		/*
-		const currentUser = this.ctx().getCurrentUser();
-
-		this.setState({
-			currentUser: currentUser
-		});
-
-		if (currentUser.image) {
-			const imagePHID = currentUser.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1];
-
-			getFile(imagePHID, (err, res) => {
-				if (err) {
-					console.warn(err);
-				} else {
-					this.setState({
-						userImage: 'data:image/png;base64,' + res.data
-					});
-				}
-			});
+	getInitialState() {
+		return {
+			currentUser: this.props.appStore.getCurrentUser()
 		}
-		*/
+	},
+
+	getAvatar(currentUser) {
+		const imagePHID = currentUser.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1];
+
+		getFile(imagePHID, (err, res) => {
+			if (err) {
+				console.warn(err);
+			} else {
+				this.setState({
+					userImage: 'data:image/png;base64,' + res.data
+				});
+			}
+		});
 	},
 
 	logout(e) {
 		e.preventDefault();
 
 		const ctx = this.props.ctx;
-		storage.clear(() => ctx.loadPage('login', ctx));
-	},
-
-	getAvatar(user) {
-		if (!user) return null;
-
-		const imgPHID = user.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1];
-
-		const redux = this.props.ctx.getRedux();
-		redux.dispatch(actions.getImage(imgPHID));
-		console.log(this.props);
-		// this.props.getAvatar(imgPHID);
+		ctx.storage.clear(() => ctx.loadPage('login', ctx));
 	},
 
 	render() {
 		const {appStore} = this.props;
 		const currentUser = appStore.getCurrentUser() || {};
+		const avatarURI = appStore.getAvatar();
 
 		return div({},
-			// currentUser.image ? this.getAvatar(currentUser) : null,
+			avatarURI ? img({
+				src: avatarURI,
+				className: 'useravatar'
+			}) : null,
 			span({
 				className: 'username'
 			}, currentUser.userName || null),

@@ -10,7 +10,7 @@ import {
 import {
 	whoami,
 	getFile
-} from '../server/server';
+} from '../server';
 
 export function getImage(id) {
 	return dispatch => getFile(id, (err, res) => {
