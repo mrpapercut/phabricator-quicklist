@@ -1,42 +1,43 @@
 {
-	"name": "phabricator-quicklist",
-	"version": "0.0.1",
-	"description": "Concise overview for Phabricator",
-	"author": "Mischa Rodermond (https://mrpapercut.com)",
-	"repository": "https://github.com/mrpapercut/phabricator-quicklist",
-	"main": "app.js",
-	"scripts": {
-		"build": "gulp",
-		"start": "node ./server/app.js"
-	},
-	"devDependencies": {
-		"babel-eslint": "^2.0.2",
-		"babelify": "^6.1.2",
-		"browserify": "^10.2.4",
-		"envify": "^3.4.0",
-		"eslint": "^0.17.1",
-		"gulp": "^3.8.10",
-		"gulp-eslint": "^0.12.0",
-		"gulp-minify-css": "^1.2.0",
-		"gulp-sass": "^2.0.1",
-		"gulp-sourcemaps": "^1.2.4",
-		"gulp-uglify": "^1.0.1",
-		"gulp-util": "^3.0.2",
-		"vinyl-buffer": "^1.0.0",
-		"vinyl-source-stream": "^1.1.0",
-		"watchify": "^2.2.1"
-	},
-	"dependencies": {
-		"babel": "^5.5.8",
-		"baconjs": "^0.7.53",
-		"es5-shim": "^4.1.5",
-		"immutable": "3.6.4",
-		"object-assign": "~2.0.0",
-		"qs": "^4.0.0",
-		"ramda": "^0.11.0",
-		"react": "^0.13.0",
-		"redux": "^0.12.0",
-		"superagent": "^0.21.0"
-	},
-	"readme": "Readme coming soon"
+  "name": "phabricator-quicklist",
+  "version": "0.0.1",
+  "description": "Concise overview for Phabricator",
+  "author": "Mischa Rodermond (https://mrpapercut.com)",
+  "repository": "https://github.com/mrpapercut/phabricator-quicklist",
+  "main": "app.js",
+  "scripts": {
+    "build": "gulp",
+    "start": "node ./server/app.js"
+  },
+  "devDependencies": {
+    "babel-eslint": "^2.0.2",
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "envify": "^3.4.0",
+    "eslint": "^0.17.1",
+    "gulp": "^3.8.10",
+    "gulp-eslint": "^0.12.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.2.4",
+    "gulp-uglify": "^1.0.1",
+    "gulp-util": "^3.0.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^2.2.1"
+  },
+  "dependencies": {
+    "babel": "^5.5.8",
+    "baconjs": "^0.7.53",
+    "es5-shim": "^4.1.5",
+    "immutable": "3.6.4",
+    "object-assign": "~2.0.0",
+    "qs": "^4.0.0",
+    "ramda": "^0.11.0",
+    "react": "^0.13.0",
+    "redux": "^0.12.0",
+    "superagent": "^0.21.0",
+    "ws": "^0.7.2"
+  },
+  "readme": "Readme coming soon"
 }
