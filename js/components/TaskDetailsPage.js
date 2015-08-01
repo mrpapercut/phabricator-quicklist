@@ -5,6 +5,8 @@ import React from 'react';
 import {GetContext} from '../mixins';
 import storage from '../lib/storage';
 
+import parseDetails from './taskDetails';
+
 const {div, h2, span} = React.DOM;
 
 const TaskDetailsPage = React.createClass({
@@ -53,9 +55,9 @@ const TaskDetailsPage = React.createClass({
 	},
 
 	parseActivity() {
-		const activity = this.state.taskActivity;
+		const {task, taskActivity} = this.state;
 
-		console.log(activity);
+		return taskActivity[task.id].map(activity => parseDetails(activity, task.dateCreated));
 	},
 
 	render() {
