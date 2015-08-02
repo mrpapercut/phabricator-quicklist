@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import Bacon from 'baconjs';
 
 import storage from '../lib/storage';
 

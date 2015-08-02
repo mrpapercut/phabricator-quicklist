@@ -1,44 +1,34 @@
 'use strict';
 
-import WebSocket from 'ws';
+import React 		from 'react';
+import WebSocket	from 'ws';
+
+import {createReduxConnector}	from '../lib/createReduxConnector';
+import {chatStore}				from '../stores/ChatStore';
+import * as actions				from '../actions/ChatActions';
+
+import ChatPage from '../components/ChatPage';
+const chatPage = React.createFactory(ChatPage);
+
 const ws = new WebSocket('ws://localhost:3033');
 
 export default class Chat {
 	constructor(ctx) {
 		this.ctx = ctx;
-		this.connect();
-	}
 
-	connect() {
-		console.log(this.ws);
-		ws.onopen = () => {
-			console.log('websocket opened');
-			this.listener();
-			this.testConnection();
-		};
-	}
-
-	listener() {
-		console.log('listening');
-		ws.onmessage = (data, flags) => {
-			console.log(data, flags);
-		};
-	}
-
-	testConnection() {
-		this.ctx.storage.get('currentUser', res => {
-			console.log(res, this);
-			this.send('testconnection', {
-				userPHID: res.phid,
-				apidetails: this.ctx.apidetails
-			});
+		ctx.registerStores({
+			chatStore: chatStore
 		});
-	}
 
-	send(action, data) {
-		ws.send(JSON.stringify({
-			action: action,
-			data: data
-		}));
+		ctx.ws = ws;
+
+		React.render(
+			React.createFactory(createReduxConnector({
+				actions: actions,
+				component: chatPage,
+				sendMessage: (recipients, message) => this.sendMessage(recipients, message)
+			}))({ctx}), document.getElementById('container')
+		);
+
 	}
 }

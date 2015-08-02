@@ -1,0 +1,65 @@
+body {
+	&[data-page=chat] {
+		#container {
+			height: 100%;
+		}
+
+		.chatroom	 {
+			width: 80%;
+			margin: 0 auto;
+			height: 530px;
+			background: #fff;
+			position: relative;
+
+			.messagesbox {
+				height: 490px;
+				overflow-y: scroll;
+			}
+
+			.message {
+				max-width: 60%;
+				margin: 1em;
+				clear: both;
+				min-height: 3em;
+				padding: 1em;
+				position: relative;
+				color: $grey;
+				float: left;
+
+				&.sent {
+					float: right;
+					background: $lightgrey;
+					box-shadow: 1px 1px 3px rgba(100, 100, 100, 0.5);
+				}
+
+				&.received {
+					float: left;
+					background: $darkergrey;
+					box-shadow: 1px 1px 3px rgba(100, 100, 100, 0.5);
+				}
+
+				.sender {
+					display: block;
+					width: 100%;
+					background: $grey;
+					color: #fff;
+				}
+			}
+		}
+
+		input {
+			width: calc(100% - 2em);
+			height: 40px;
+			margin: 0 auto;
+			clear: both;
+			display: block;
+			padding: 0 1em;
+			border: none;
+			border-top: 1px solid #000;
+			outline: none;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+	}
+}

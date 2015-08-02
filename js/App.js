@@ -14,29 +14,6 @@ import * as actions from './actions/AppActions';
 import Header	from './components/Header';
 const header = React.createFactory(Header);
 
-let loadedPage = null;
-
-const loadPage = function(page, ctx, params) {
-	const {storage} = ctx;
-
-	if (!page && ctx.apidetails) {
-		storage.get('lastpage', (lastpage) => {
-			if (lastpage && Pages[lastpage] && lastpage !== 'login' && lastpage !== 'taskdetails') {
-				loadPage(lastpage, ctx, params);
-			} else {
-				loadPage('chat', ctx, params);
-			}
-		});
-	} else if (page && Pages[page]) {
-		storage.set('lastpage', page, () => {
-			document.body.setAttribute('data-page', page);
-			loadedPage = new Pages[page](ctx, params);
-		});
-	} else {
-		loadPage('login', ctx);
-	}
-};
-
 window.addEventListener('DOMContentLoaded', () => {
 	const ctx = new Context();
 	const {storage} = ctx;
