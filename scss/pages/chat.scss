@@ -17,11 +17,11 @@ body {
 			}
 
 			.message {
+				min-width: 40%;
 				max-width: 60%;
 				margin: 1em;
 				clear: both;
 				min-height: 3em;
-				padding: 1em;
 				position: relative;
 				color: $grey;
 				float: left;
@@ -43,6 +43,20 @@ body {
 					width: 100%;
 					background: $grey;
 					color: #fff;
+					position: absolute;
+					left: 0;
+					top: 0;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					font-size: 0.8em;
+					line-height: 1.3em;
+					padding: 2px 0;
+					text-indent: 1em;
+				}
+
+				.messageContent {
+					padding: 1.5em 0 0 1em;
 				}
 			}
 		}
