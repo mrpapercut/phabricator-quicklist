@@ -16,7 +16,7 @@ export default class Login {
 	constructor(ctx) {
 		const storeApiDetails = details => {
 			storage.set('apidetails', details, res => {
-				ctx.loadPage('tasks', ctx);
+				ctx.loadPage('chat', ctx);
 			});
 		};
 

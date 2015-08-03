@@ -30,7 +30,7 @@ export class AppStore {
 	}
 
 	setAvatar(str) {
-		this.avatar = 'data:image/png;base64,' + str;
+		this.avatar = str;
 		return this.reinit();
 	}
 

@@ -2,34 +2,9 @@
 
 import React from 'react';
 
-import {
-	getFile
-} from '../server';
-
 const {div, img, span, button} = React.DOM;
 
 const Header = React.createClass({
-
-	getInitialState() {
-		return {
-			currentUser: this.props.appStore.getCurrentUser()
-		}
-	},
-
-	getAvatar(currentUser) {
-		const imagePHID = currentUser.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1];
-
-		getFile(imagePHID, (err, res) => {
-			if (err) {
-				console.warn(err);
-			} else {
-				this.setState({
-					userImage: 'data:image/png;base64,' + res.data
-				});
-			}
-		});
-	},
-
 	logout(e) {
 		e.preventDefault();
 

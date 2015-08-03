@@ -12,7 +12,7 @@ import {
 	getFile
 } from '../server';
 
-export function getImage(id) {
+export function getAvatarById(id) {
 	return dispatch => getFile(id, (err, res) => {
 		if (err) console.warn(err);
 		else dispatch({type: SET_AVATAR, data: res.data});

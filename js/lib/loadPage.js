@@ -12,7 +12,7 @@ const loadPage = (page, ctx, params) => {
 			if (lastpage && Pages[lastpage] && lastpage !== 'login' && lastpage !== 'taskdetails') {
 				loadPage(lastpage, ctx, params);
 			} else {
-				loadPage('tasks', ctx, params);
+				loadPage('chat', ctx, params);
 			}
 		});
 	} else if (page && Pages[page]) {

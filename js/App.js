@@ -27,8 +27,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	storage.get('curuser', user => {
 		if (user) {
+			const userCustomAvatar = user.image.match(/(PHID-FILE-[a-z0-9]+)\//);
+
+			if (userCustomAvatar) {
+				redux.dispatch(actions.getImage(userCustomAvatar[1]));
+			}
 			redux.dispatch(actions.setCurrentUser(user));
-			redux.dispatch(actions.getImage(user.image.match(/(PHID-FILE-[a-z0-9]+)\//)[1]));
 		}
 	});
 
